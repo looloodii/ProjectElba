@@ -1,18 +1,50 @@
 .marketing {
     margin: 20px 0 20px 0;
     text-align: center;
+    padding: 10px 0 10px 0;
 }
 
-h2 {
+body {
+    font-family: 'Arimo', sans-serif;
+}
+
+h4 {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 10px 0 10px 0;
+}
+
+h1, h2, h5 {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-h5 {
-    font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.carousel-caption h1 {
+    font-size: 60px;
+    letter-spacing: 5px;
+}
+
+.carousel-caption {
+    bottom: 100px;
+}
+
+.carousel-caption p {
+    padding: 20px 0 0 0;
+}
+
+.carousel-caption .caption-text {
+    border: solid;
+}
+
+.btn-splash {
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 0;
+    transition: all 0.25s ease-in-out;
+}
+
+.btn-splash:hover {
+    background-color: rgba(255,255,255,1);
 }
 
 .custom-nav {
@@ -20,13 +52,51 @@ h5 {
     height: 50px;
 }
 
-.nav-tab {
+a.nav-tab {
     color: #333333;
     padding: 5px 15px;
+    transition: all 0.25s ease-in-out;
 }
 
-.nav-tab:hover {
-    color: #5d5d5d;
+a.nav-tab:hover h5, a.nav-tab:active h5 {
+    color: #978089;
+}
+
+a.nav-tab:hover, a.nav-tab:visited, a, a.nav-tab:-webkit-any-link {
     background-color: transparent;
     text-decoration: none;
+    color: initial;
+}
+
+footer {
+    width: 100%;
+    margin: 0;
+    color: rgba(255,255,255,0.8);
+}
+
+footer .foot-block {
+    padding: 20px;
+}
+
+footer .foot-blocks {
+    background-image: url("http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,g_center,h_500,o_40,w_1600/v1428704039/P1180557_itm8od.jpg");
+    height: 350px;
+}
+
+footer h2 {
+    color: rgba(255,255,255,1);
+}
+
+.copyright {
+    background-color: #2f282b;
+    width: 100%;
+    height: 45px;
+    color: rgba(255,255,255,0.4);
+    vertical-align: middle;
+    letter-spacing: 1px;
+    font-size: 12px;
+}
+
+.copyright p {
+    margin-top: 15px;
 }
