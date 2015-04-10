@@ -1,0 +1,32 @@
+.marketing {
+    margin: 20px 0 20px 0;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h5 {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.custom-nav {
+    width: 800px;
+    height: 50px;
+}
+
+.nav-tab {
+    color: #333333;
+    padding: 5px 15px;
+}
+
+.nav-tab:hover {
+    color: #5d5d5d;
+    background-color: transparent;
+    text-decoration: none;
+}
