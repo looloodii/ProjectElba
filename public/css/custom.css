@@ -14,7 +14,7 @@ h4 {
     padding: 10px 0 10px 0;
 }
 
-h1, h2, h5 {
+h1, h2, h3, h5 {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -58,14 +58,19 @@ a.nav-tab {
     transition: all 0.25s ease-in-out;
 }
 
-a.nav-tab:hover h5, a.nav-tab:active h5 {
+a.nav-tab:hover h5, a.nav-tab:active h5, .blog a:hover {
     color: #978089;
 }
 
-a.nav-tab:hover, a.nav-tab:visited, a, a.nav-tab:-webkit-any-link {
+a:hover, a:visited, a, a.nav-tab:-webkit-any-link {
     background-color: transparent;
     text-decoration: none;
     color: initial;
+    transition: all 0.25s ease-in-out;
+}
+
+.product-grid {
+    padding: 60px 0 0 0;
 }
 
 footer {
@@ -91,12 +96,34 @@ footer h2 {
     color: rgba(255,255,255,1);
 }
 
-footer .row div:first-child {
+footer .row>div:first-child {
     padding-right: 10px;
 }
 
-footer .row div:last-child {
+footer .row>div:last-child {
     padding-left: 10px;
+}
+
+footer .social-icons>a {
+    color: inherit;
+    transition: all 0.25s ease-in-out;
+    text-decoration: none;
+}
+
+footer .social-icons>a i {
+    padding: 20px 40px 0 0;
+}
+
+footer .social-icons>a:hover {
+    color: rgba(255,255,255,1);
+}
+
+footer .sign-up {
+    color: initial;
+}
+
+footer .sign-up .form-control {
+    border-radius: 0;
 }
 
 .copyright {
@@ -111,6 +138,28 @@ footer .row div:last-child {
 
 .copyright p {
     margin-top: 15px;
+}
+
+.blog a img:hover {
+    opacity: 0.8;
+    transition: all 0.25s ease-in-out;
+}
+
+.border {
+    border: solid;
+}
+
+.bg-button {
+    background-color: rgba(146, 124, 133, 0.3);
+    transition: all 0.25s ease-in-out;
+}
+
+.bg-button:hover {
+    background-color: rgba(146, 124, 133, 0.2);
+}
+
+a.bg-button:hover {
+    color: #5a5a5a;
 }
 
 /* CUSTOMIZE THE CAROUSEL
@@ -164,7 +213,7 @@ body {
 ------------------------- */
 
 .featurette-divider {
-    margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    margin: 60px 0; /* Space out the Bootstrap <hr> more */
 }
 
 /* Thin out the marketing headings */
@@ -217,4 +266,23 @@ body {
     .featurette-heading {
         margin-top: 120px;
     }
+}
+
+.construction {
+    font-size: 70px;
+    letter-spacing: 2px;
+    font-family: 'Roboto', sans-serif;
+    background-image: url("http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,h_600,o_70,w_1200/v1428740338/P1150681_tad5oa.jpg");
+    height: 600px;
+    margin: 50px 0;
+    color: rgba(255,255,255,1);
+}
+
+.img-caption {
+    border: solid;
+    width: 90%;
+    position: relative;
+    top: 100px;
+    padding: 40px;
+    /*background-color: rgba(255,255,255,0.4);*/
 }

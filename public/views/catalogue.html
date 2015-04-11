@@ -1,7 +1,10 @@
 <div class="marketing container-fluid">
 
+    <hr style="margin-bottom: 60px;">
+
     <div class="row featurette">
         <div class="col-md-7">
+            <!-- <a href="" ng-click="getCakes()"></a> -->
             <h2 class="featurette-heading">Cakes<span
                     class="text-muted"></span></h2>
 
@@ -14,6 +17,14 @@
             <img class="featurette-image img-responsive center-block" alt="Cakes"
                  src="http://res.cloudinary.com/chassiness/image/upload/c_crop,h_700,w_700/v1428656572/P1180860_kfxnvs.jpg"
                  data-holder-rendered="true">
+        </div>
+    </div>
+
+    <div class="row product-grid" ng-repeat="cakeRow in cakes">
+        <div class="col-lg-4" ng-repeat="cake in cakeRow">
+            <img ng-src="{{ cake.imageUrl }}" class="img-responsive">
+            <h4>{{ cake.name }}</h4>
+            <p>{{ cake.description }} <strong> ${{ cake.price }} </strong></p>
         </div>
     </div>
 
@@ -30,6 +41,14 @@
             <img class="featurette-image img-responsive center-block" alt="Cupcakes"
                  src="http://res.cloudinary.com/chassiness/image/upload/c_crop,h_700,w_700/v1428656144/P1130676_i0txl4.png"
                  data-holder-rendered="true">
+        </div>
+    </div>
+
+    <div class="row product-grid" ng-repeat="cupcakeRow in cupcakes">
+        <div class="col-lg-4" ng-repeat="cupcake in cupcakeRow">
+            <img ng-src="{{ cupcake.imageUrl }}" class="img-responsive">
+            <h4>{{ cupcake.name }}</h4>
+            <p>{{ cupcake.description }} <strong>${{ cupcake.price }}</strong></p>
         </div>
     </div>
 
@@ -51,6 +70,14 @@
         </div>
     </div>
 
+    <div class="row product-grid" ng-repeat="macaronRow in macarons">
+        <div class="col-lg-4" ng-repeat="macaron in macaronRow">
+            <img ng-src="{{ macaron.imageUrl }}" class="img-responsive">
+            <h4>{{ macaron.name }}</h4>
+            <p>{{ macaron.description }} <strong>${{ macaron.price }}</strong></p>
+        </div>
+    </div>
+
     <hr class="featurette-divider">
 
     <div class="row featurette">
@@ -64,6 +91,14 @@
             <img class="featurette-image img-responsive center-block" alt="Other Treats"
                  src="http://res.cloudinary.com/chassiness/image/upload/c_crop,h_700,w_700/v1428711643/P1160632_mqpajp.png"
                  data-holder-rendered="true">
+        </div>
+    </div>
+
+    <div class="row product-grid" ng-repeat="treatRow in treats">
+        <div class="col-lg-4" ng-repeat="treat in treatRow">
+            <img ng-src="{{ treat.imageUrl }}" class="img-responsive">
+            <h4>{{ treat.name }}</h4>
+            <p>{{ treat.description }} <strong>${{ treat.price }}</strong></p>
         </div>
     </div>
 

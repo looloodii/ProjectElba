@@ -8,16 +8,31 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'MainController'
         })
 
-        // nerds page that will use the NerdController
-        .when('/nerds', {
-            templateUrl: 'views/nerd.html',
-            controller: 'NerdController'
-        })
-
         .when('/catalogue', {
             templateUrl: 'views/catalogue.html',
             controller: 'CatalogueController'
-        });
+        })
+
+        .when('/about', {
+            templateUrl: 'views/underconstruction.html',
+            controller: 'MainController'
+        })
+
+        .when('/custom', {
+            templateUrl: 'views/underconstruction.html',
+            controller: 'MainController'
+        })
+
+        .when('/blog', {
+            templateUrl: 'views/blog.html',
+            controller: 'MainController'
+        })
+
+        .when('/contact', {
+            templateUrl: 'views/underconstruction.html',
+            controller: 'MainController'
+        })
+        ;
 
     $locationProvider.html5Mode(true);
 

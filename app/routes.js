@@ -2,6 +2,7 @@
 
 // grab the nerd model we just created
 var Nerd = require('./models/nerd');
+var Product = require('./models/product');
 
 module.exports = function(app) {
 
@@ -23,8 +24,18 @@ module.exports = function(app) {
         });
     });
 
-    // route to handle creating goes here (app.post)
-    // route to handle delete goes here (app.delete)
+    // CATALOGUE
+
+    // GET api/catalogue/:category
+    app.get('/api/catalogue/:category', function(req, res) {
+
+        Product.find({ 'category': req.params.category }, function(err, products) {
+            if (err)
+                res.send(err);
+
+            res.json(products); // return all nerds in JSON format
+        });
+    });
 
     // frontend routes =========================================================
     // route to handle all angular requests
