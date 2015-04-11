@@ -1,4 +1,4 @@
-angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
     $routeProvider
 
@@ -12,6 +12,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/nerds', {
             templateUrl: 'views/nerd.html',
             controller: 'NerdController'
+        })
+
+        .when('/catalogue', {
+            templateUrl: 'views/catalogue.html',
+            controller: 'CatalogueController'
         });
 
     $locationProvider.html5Mode(true);
