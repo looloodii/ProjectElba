@@ -3,7 +3,7 @@
     <hr style="margin-bottom: 60px;">
 
     <div class="row featurette">
-        <div class="col-md-7">
+        <div class="col-md-7 col-xs-6">
             <!-- <a href="" ng-click="getCakes()"></a> -->
             <h2 class="featurette-heading">Cakes<span
                     class="text-muted"></span></h2>
@@ -13,7 +13,7 @@
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
                 Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 col-xs-6">
             <img class="featurette-image img-responsive center-block" alt="Cakes"
                  src="http://res.cloudinary.com/chassiness/image/upload/c_crop,h_700,w_700/v1428656572/P1180860_kfxnvs.jpg"
                  data-holder-rendered="true">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="row product-grid" ng-repeat="cakeRow in cakes">
-        <div class="col-lg-4" ng-repeat="cake in cakeRow">
+        <div class="col-md-4 col-xs-4" ng-repeat="cake in cakeRow">
             <img ng-src="{{ cake.imageUrl }}" class="img-responsive">
             <h4>{{ cake.name }}</h4>
             <p>{{ cake.description }} <strong> ${{ cake.price }} </strong></p>
@@ -31,13 +31,13 @@
     <hr class="featurette-divider">
 
     <div class="row featurette">
-        <div class="col-md-7 col-md-push-5">
+        <div class="col-md-7 col-md-push-5 col-xs-6">
             <h2 class="featurette-heading">Cupcakes <span class="text-muted"></span></h2>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
                 Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
         </div>
-        <div class="col-md-5 col-md-pull-7">
+        <div class="col-md-5 col-md-pull-7 col-xs-6">
             <img class="featurette-image img-responsive center-block" alt="Cupcakes"
                  src="http://res.cloudinary.com/chassiness/image/upload/c_crop,h_700,w_700/v1428656144/P1130676_i0txl4.png"
                  data-holder-rendered="true">
@@ -45,7 +45,7 @@
     </div>
 
     <div class="row product-grid" ng-repeat="cupcakeRow in cupcakes">
-        <div class="col-lg-4" ng-repeat="cupcake in cupcakeRow">
+        <div class="col-md-4 col-xs-4" ng-repeat="cupcake in cupcakeRow">
             <img ng-src="{{ cupcake.imageUrl }}" class="img-responsive">
             <h4>{{ cupcake.name }}</h4>
             <p>{{ cupcake.description }} <strong>${{ cupcake.price }}</strong></p>
@@ -55,7 +55,7 @@
     <hr class="featurette-divider">
 
     <div class="row featurette">
-        <div class="col-md-7">
+        <div class="col-md-7 col-xs-6">
             <h2 class="featurette-heading">Macarons<span
                     class="text-muted"></span></h2>
 
@@ -63,7 +63,7 @@
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
                 Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 col-xs-6">
             <img class="featurette-image img-responsive center-block" alt="Macarons"
                  src="http://res.cloudinary.com/chassiness/image/upload/c_crop,h_600,w_600/v1428656366/P1120538_rabrwl.jpg"
                  data-holder-rendered="true">
@@ -71,7 +71,7 @@
     </div>
 
     <div class="row product-grid" ng-repeat="macaronRow in macarons">
-        <div class="col-lg-4" ng-repeat="macaron in macaronRow">
+        <div class="col-md-4 col-xs-4" ng-repeat="macaron in macaronRow">
             <img ng-src="{{ macaron.imageUrl }}" class="img-responsive">
             <h4>{{ macaron.name }}</h4>
             <p>{{ macaron.description }} <strong>${{ macaron.price }}</strong></p>
@@ -81,13 +81,13 @@
     <hr class="featurette-divider">
 
     <div class="row featurette">
-        <div class="col-md-7 col-md-push-5">
+        <div class="col-md-7 col-md-push-5 col-xs-6">
             <h2 class="featurette-heading">Other Treats <span class="text-muted"></span></h2>
             <p class="lead">Brownies, cookies, paleo cookies, laces cookies, and more.</p>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
                 Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
         </div>
-        <div class="col-md-5 col-md-pull-7">
+        <div class="col-md-5 col-md-pull-7 col-xs-6">
             <img class="featurette-image img-responsive center-block" alt="Other Treats"
                  src="http://res.cloudinary.com/chassiness/image/upload/c_crop,h_700,w_700/v1428711643/P1160632_mqpajp.png"
                  data-holder-rendered="true">
@@ -95,7 +95,7 @@
     </div>
 
     <div class="row product-grid" ng-repeat="treatRow in treats">
-        <div class="col-lg-4" ng-repeat="treat in treatRow">
+        <div class="col-md-4 col-xs-4" ng-repeat="treat in treatRow">
             <img ng-src="{{ treat.imageUrl }}" class="img-responsive">
             <h4>{{ treat.name }}</h4>
             <p>{{ treat.description }} <strong>${{ treat.price }}</strong></p>

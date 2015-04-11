@@ -75,8 +75,10 @@ a:hover, a:visited, a, a.nav-tab:-webkit-any-link {
 
 footer {
     width: 100%;
-    padding-top: 50px;
+    margin-top: 50px;
     color: rgba(255,255,255,0.8);
+    background-image: url("http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,g_center,h_500,o_40,w_1600/v1428704039/P1180557_itm8od.jpg");
+    background-repeat: repeat-x;
 }
 
 footer .foot-block {
@@ -88,8 +90,9 @@ footer .foot-block-center {
 }
 
 footer .foot-blocks {
-    background-image: url("http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,g_center,h_500,o_40,w_1600/v1428704039/P1180557_itm8od.jpg");
+
     height: 350px;
+    width: auto;
 }
 
 footer h2 {
