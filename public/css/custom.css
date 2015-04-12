@@ -67,6 +67,7 @@ a:hover, a:visited, a, a.nav-tab:-webkit-any-link {
     text-decoration: none;
     color: initial;
     transition: all 0.25s ease-in-out;
+    font-family: 'Roboto', sans-serif;
 }
 
 .product-grid {
@@ -86,7 +87,7 @@ footer .foot-block {
 }
 
 footer .foot-block-center {
-    padding: 20px;
+    padding: 20px 5px;
 }
 
 footer .foot-blocks {
@@ -100,11 +101,11 @@ footer h2 {
 }
 
 footer .row>div:first-child {
-    padding-right: 10px;
+    padding-right: 30px;
 }
 
 footer .row>div:last-child {
-    padding-left: 10px;
+    padding-left: 30px;
 }
 
 footer .social-icons>a {
@@ -114,11 +115,20 @@ footer .social-icons>a {
 }
 
 footer .social-icons>a i {
-    padding: 20px 40px 0 0;
+    padding: 20px 30px 0 0;
 }
 
 footer .social-icons>a:hover {
     color: rgba(255,255,255,1);
+}
+
+footer .social-icons>a>img {
+    opacity: 0.8;
+    transition: all 0.25s ease-in-out;
+}
+
+footer .social-icons>a>img:hover {
+    opacity: 1;
 }
 
 footer .sign-up {
@@ -193,6 +203,24 @@ a.bg-button:hover {
 
 body {
     color: #5a5a5a;
+}
+
+.img-caption-overlay-sm {
+    top:0;
+    left:0;
+    position: absolute;
+    text-align: center;
+    padding: 40px;
+    font-size: 48px;
+    color: white;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+}
+
+.img-container{
+    position:relative;
+    margin: 20px 0 50px 0;
 }
 
 /* MARKETING CONTENT
