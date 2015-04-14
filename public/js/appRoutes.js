@@ -18,11 +18,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'MainController'
         })
 
-        .when('/custom', {
-            templateUrl: 'views/underconstruction.html',
-            controller: 'MainController'
-        })
-
         .when('/blog', {
             templateUrl: 'views/blog.html',
             controller: 'MainController'
@@ -37,7 +32,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/underconstruction.html',
             controller: 'MainController'
         })
-        ;
+
+        .when('/account', {
+            templateUrl: 'views/underconstruction.html',
+            controller: 'MainController'
+        })
+    ;
 
     $locationProvider.html5Mode(true);
 
