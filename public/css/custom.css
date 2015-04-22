@@ -1,3 +1,7 @@
+html {
+    position: relative;
+}
+
 .marketing {
     margin: 20px 0 20px 0;
     /*text-align: center;*/
@@ -67,6 +71,10 @@ footer {
     color: rgba(255,255,255,0.8);
     background-image: url("http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,g_center,h_500,o_40,w_1600/v1428704039/P1180557_itm8od.jpg");
     background-repeat: repeat-x;
+    position: absolute;
+    bottom: 0;
+    display: block;
+    height: 395px;
 }
 
 footer .foot-block {
@@ -208,6 +216,7 @@ a.bg-button:hover {
 
 body {
     color: #5a5a5a;
+    margin-bottom: 445px;
 }
 
 .img-caption-overlay-sm {
