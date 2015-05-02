@@ -1,5 +1,13 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $http, $location) {
 
-    $scope.tagline = 'To the moon and back!';   
+    $scope.tagline = 'To the moon and back!';
+    $scope.formInfo = {};
+
+    $scope.register = function() {
+        $http.get('/register', $scope).
+            success(function(data) {
+                $location.path('/register', $scope);
+            });
+    }
 
 });

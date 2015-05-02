@@ -37,6 +37,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/underconstruction.html',
             controller: 'MainController'
         })
+
+        .when('/register', {
+            templateUrl: 'views/registration.html',
+            controller: 'RegistrationController'
+        })
     ;
 
     $locationProvider.html5Mode(true);

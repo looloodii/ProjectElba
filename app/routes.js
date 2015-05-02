@@ -3,6 +3,7 @@
 // grab the nerd model we just created
 var Nerd = require('./models/nerd');
 var Product = require('./models/product');
+var User = require('./models/user');
 
 module.exports = function(app) {
 
@@ -36,6 +37,20 @@ module.exports = function(app) {
             res.json(products); // return all nerds in JSON format
         });
     });
+
+    // USER
+
+    /*// POST api/user/create
+    app.post('/api/user/create', function(req, res) {
+        console.log("inside");
+       /!* User.create({ 'user': req.params.user }, function(err, users) {
+            if (err)
+                res.send(err);
+
+            res.json(users); // return all nerds in JSON format
+        });*!/
+        console.log("on app create user");
+    });*/
 
     // frontend routes =========================================================
     // route to handle all angular requests
