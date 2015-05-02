@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+
+    <title>Starter Node and Angular</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- custom styles -->
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <!-- custom styles -->
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,300' type='text/css'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700" type="text/css">
+
+    <!-- JS -->
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-route/angular-route.min.js"></script>
+    <script src="libs/jquery/dist/jquery.min.js"></script>
+    <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="libs/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="libs/angular-touch/angular-touch.min.js"></script>
+
+    <!-- ANGULAR CUSTOM -->
+    <script src="js/controllers/MainCtrl.js"></script>
+    <script src="js/controllers/CatalogueCtrl.js"></script>
+    <script src="js/controllers/SplashCtrl.js"></script>
+    <script src="js/services/CatalogueService.js"></script>
+    <script src="js/appRoutes.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body ng-app="sampleApp" ng-controller="MainController">
+<div class="container-fluid" style="width: 1100px">
+
+    <!-- HEADER -->
+    <header ng-include="'views/bannerlogo.html'"></header>
+    <header ng-include="'views/navbar.html'"></header>
+
+    <!-- ANGULAR DYNAMIC CONTENT -->
+    <div class="ng-view" autoscroll="true"></div>
+
+</div>
+
+<!-- FOOTER -->
+<div ng-include="'views/footer.html'"></div>
+
+
+</body>
+</html>
