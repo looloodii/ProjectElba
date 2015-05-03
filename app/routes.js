@@ -3,6 +3,7 @@
 // grab the nerd model we just created
 var Nerd = require('./models/nerd');
 var Product = require('./models/product');
+//var User = require('./models/user');
 
 module.exports = function(app) {
 
@@ -35,6 +36,35 @@ module.exports = function(app) {
 
             res.json(products); // return all nerds in JSON format
         });
+    });
+
+    // USER
+
+    // POST api/user/
+    app.post('/api/user', function(req, res) {
+
+        var User = require('./models/user');
+
+        var newUser = new User({
+            username : req.body.form.username,
+            firstName:  req.body.form.firstName,
+            lastName: req.body.form.lastName,
+            password: req.body.form.password,
+            email: req.body.form.email,
+            mobileNumber: req.body.form.mobileNumber,
+            location: req.body.form.location
+
+        });
+
+        newUser.save(function(err) {
+            if (err){
+                throw err;
+            }else{
+                console.log('User saved successfully!');
+            }
+        });
+
+        return res.send(newUser);
     });
 
     // frontend routes =========================================================
