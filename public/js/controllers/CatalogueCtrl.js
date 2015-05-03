@@ -1,4 +1,6 @@
-angular.module('CatalogueCtrl', []).controller('CatalogueController', function($scope, Product) {
+catalogue = angular.module('CatalogueCtrl', []);
+
+catalogue.controller('CatalogueController', function($scope, $rootScope, $location, $anchorScroll, $routeParams,  Product) {
 
     Product.get('CAKES').success(function(data) {
         //$scope.cakes = data;
@@ -26,6 +28,11 @@ angular.module('CatalogueCtrl', []).controller('CatalogueController', function($
         return newArr;
     }
 
+    //$scope.$on('$viewContentLoaded', function(newRoute, oldRoute) {
+    //    $location.hash($routeParams.categoryId);
+    //    $anchorScroll();
+    //});
+
 
     //$scope.getCakes = function() {
     //    Product.get('cakes').success(function(data) {
@@ -33,3 +40,10 @@ angular.module('CatalogueCtrl', []).controller('CatalogueController', function($
     //    });
     //};
 });
+
+//catalogue.run(function($rootScope, $location, $anchorScroll, $routeParams) {
+//    $rootScope.$on('$viewContentLoaded', function(newRoute, oldRoute) {
+//        $location.hash($routeParams.scrollTo);
+//        $anchorScroll();
+//    });
+//})

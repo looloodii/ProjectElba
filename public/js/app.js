@@ -1,3 +1,4 @@
-angular.module('sampleApp', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.tpls', 'appRoutes', 'MainCtrl',
-    'CatalogueCtrl', 'SplashCtrl', 'CatalogueService'
+angular.module('shopElbaApp', [
+    'ngRoute', 'ui.bootstrap', 'ui.bootstrap.tpls', 'ngCart',
+    'appRoutes', 'MainCtrl', 'CatalogueCtrl', 'SplashCtrl', 'CatalogueService'
 ]);
