@@ -13,6 +13,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'CatalogueController'
         })
 
+        .when ('/catalogue/:categoryId', {
+            templateUrl: 'views/catalogue.html',
+            controller: 'CatalogueController'
+        })
+
         .when('/about', {
             templateUrl: 'views/underconstruction.html',
             controller: 'MainController'
@@ -29,7 +34,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         })
 
         .when('/cart', {
-            templateUrl: 'views/underconstruction.html',
+            templateUrl: 'views/cart.html',
             controller: 'MainController'
         })
 

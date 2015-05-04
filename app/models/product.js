@@ -6,7 +6,8 @@ var ProductSchema = new mongoose.Schema({
     description: String,
     imageUrl: String,
     status: String,
-    price: Number
+    price: Number,
+    flavors: [String]
 });
 
 ProductSchema.path('name').index({ unique:true });

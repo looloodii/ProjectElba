@@ -1,4 +1,4 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, $http, $location) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $http, $location, ngCart) {
 
     $scope.tagline = 'To the moon and back!';
     $scope.regForm = {};
@@ -9,5 +9,9 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
                 $location.path('/register', $scope);
          //   });
     }
+
+    $scope.getTotalItems = function() {
+        return ngCart.getTotalItems();
+    };
 
 });

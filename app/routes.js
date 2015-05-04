@@ -34,7 +34,7 @@ module.exports = function(app) {
             if (err)
                 res.send(err);
 
-            res.json(products); // return all nerds in JSON format
+            res.json(products);
         });
     });
 
