@@ -8,7 +8,6 @@
     "angular": "latest",
     "angular-route": "latest",
     "angular-bootstrap": "latest",
-    "angular-touch": "latest",
-    "ngcart": "~0.0.3-rc.2"
+    "angular-touch": "latest"
   }
 }

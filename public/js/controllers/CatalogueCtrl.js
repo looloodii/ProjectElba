@@ -1,6 +1,7 @@
 catalogue = angular.module('CatalogueCtrl', []);
 
-catalogue.controller('CatalogueController', function($scope, $rootScope, $location, $anchorScroll, $routeParams,  Product) {
+catalogue.controller('CatalogueController', function($scope, $http, ngCart, Product) {
+//catalogue.controller('CatalogueController', function($scope, $rootScope, $location, $anchorScroll, $routeParams,  Product) {
 
     Product.get('CAKES').success(function(data) {
         //$scope.cakes = data;
