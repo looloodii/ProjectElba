@@ -1,83 +1,125 @@
-<div class="marketing">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
 
-    <div class="img-container">
-        <img class="img-responsive"
-             src="http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,h_150,o_60,w_1100/v1428704039/P1180557_itm8od.jpg">
+    <title>Shop The Elba Diaries</title>
 
-        <div class="img-caption-overlay-sm text-uppercase">{{tagline}}</div>
-    </div>
+    <!-- CSS -->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- custom styles -->
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <!-- custom styles -->
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,300' type='text/css'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700" type="text/css">
 
-    <div class="row featurette">
+</head>
+<body ng-app="shopElbaApp">
+<div class="container-fluid" style="width: 1100px">
 
-        <div class="col-md-12 col-xs-12">
-            <form class="form-horizontal" ng-submit="createUser();" ng-controller="UserController">
-                <div class="form-group">
-                    <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+    <!-- HEADER -->
+    <header ng-include="'views/bannerlogo.html'"></header>
+    <header ng-include="'views/navbar.html'"></header>
 
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputUsername" ng-model="user.username"
-                               placeholder="Username">
-                    </div>
+
+    <!-- ANGULAR DYNAMIC CONTENT -->
+    <div class="ng-view" autoscroll="true">
+        <div class="marketing">
+
+            <div class="img-container">
+                <img class="img-responsive"
+                     src="http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,h_150,o_60,w_1100/v1428704039/P1180557_itm8od.jpg">
+
+                <div class="img-caption-overlay-sm text-uppercase">Sign Up!</div>
+            </div>
+
+            <div class="row featurette">
+               <!-- <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+                <% } %>
+                {{message}}-->
+                <div class="col-md-12 col-xs-12">
+                    <form class="form-horizontal" action="/signup" method="post">
+                        <div class="form-group">
+                            <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputUsername"  name="username"
+                                       placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inputPassword"  name="password"
+                                       placeholder="Password" name="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputFirstName"  name="firstName"
+                                       placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputLastName"  name="lastName"
+                                       placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputEmail" name="email"
+                                       placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputMobileNumber" class="col-sm-2 control-label">Mobile Number</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputMobileNumber" name="mobileNumber"
+                                       placeholder="Mobile Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLocation" class="col-sm-2 control-label">Location</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputLocation" name="location"
+                                       placeholder="Location">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Register</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
 
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword" ng-model="user.password"
-                               placeholder="Password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputFirstName" ng-model="user.firstName"
-                               placeholder="First Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputLastName" ng-model="user.lastName"
-                               placeholder="Last Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputEmail" ng-model="user.email"
-                               placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputMobileNumber" class="col-sm-2 control-label">Mobile Number</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputMobileNumber" ng-model="user.mobileNumber"
-                               placeholder="Mobile Number">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputLocation" class="col-sm-2 control-label">Location</label>
-
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputLocation" ng-model="user.location"
-                               placeholder="Location">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Register</button>
-                    </div>
-                </div>
-            </form>
+            </div>
+            <hr class="featurette-divider">
         </div>
 
     </div>
 
-    <hr class="featurette-divider">
-
-
 </div>
+
+<!-- FOOTER -->
+<footer ng-include="'views/footer.html'"></footer>
+
+
+
+</body>
+</html>
+
