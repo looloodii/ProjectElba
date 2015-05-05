@@ -209,7 +209,7 @@ a.bg-button:hover {
 /* Carousel base class */
 .carousel {
     height: 500px;
-    margin-bottom: 60px;
+    /*margin-bottom: 60px;*/
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -387,4 +387,18 @@ body {
     /*color: #fff;*/
     /*background-color: #337ab7;*/
     /*border-color: #2e6da4;*/
+/*}*/
+
+.ordersearch {
+    padding: 40px 50px;
+}
+
+.ordersearch .heading {
+    margin-top: 20px;
+    font-size: 50px;
+}
+
+/*.ordersearch .input-lg {*/
+    /*height: 80px;*/
+    /*font-size: 20px;*/
 /*}*/

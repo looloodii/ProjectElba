@@ -48,11 +48,14 @@ cart.controller('OrderController', function($scope, ngCart, Order) {
 
     $scope.resetCart = function() {
         $scope.order = angular.copy($scope.emptyOrder);
+        $scope.submitted = false;
         ngCart.empty();
     };
 
     $scope.createOrder = function() {
         $scope.submitted = false;
+        console.log('totalItems: ' + ngCart.getTotalItems());
+
         if ($scope.orderform.$valid) {
             // Submit as normal
 
@@ -91,8 +94,12 @@ cart.controller('OrderController', function($scope, ngCart, Order) {
         }
     }
 
-    $scope.reset = function() {
-
+    $scope.isCartEmpty = function () {
+        if (ngCart.getTotalItems() > 0) {
+            return false;
+        }
+        return true;
     }
+
 
 });
