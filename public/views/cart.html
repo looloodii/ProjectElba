@@ -1,1 +1,150 @@
-<ngcart-cart></ngcart-cart>
+<div class="marketing">
+
+    <div class="img-container">
+        <img class="img-responsive"
+             src="http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,h_150,o_60,w_1100/v1428704039/P1180557_itm8od.jpg">
+
+        <div class="img-caption-overlay-sm text-uppercase">Finalize my order</div>
+    </div>
+
+    <ngcart-cart></ngcart-cart>
+
+    <form name="orderform" novalidate ng-submit="createOrder(); resetCart();">
+        <div class="row">
+
+            <div class="col-md-4 col-xs-12">
+                <h4>Pickup/Meetup Date</h4>
+
+                <div class="form-group" ng-class="{'has-error' : (orderform.pickuppoint.$dirty && orderform.pickuppoint.$invalid)
+                        || (orderform.pickuppoint.$invalid && orderform.submitted)}">
+                    <div class="input-group">
+                        <input ng-model="order.orderdate" name="orderdate"
+                               type="text" class="form-control" datepicker-popup="{{ dateFormat }}"
+                               is-open="opened" min-date="{{ minDate }}" max-date="{{ maxDate }}"
+                               datepicker-options="dateOptions"
+                               ng-required="true" show-button-bar="false"
+                               placeholder="Pickup Date" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error' : (orderform.pickuppoint.$dirty && orderform.pickuppoint.$invalid)
+                        || (orderform.pickuppoint.$invalid && orderform.submitted)}">
+                    <select ng-model="order.pickuppoint" class="form-control"
+                            ng-class="{'has-error' : orderform.pickuppoint.$invalid}" name="pickuppoint"
+                            ng-options="p for p in {{ pickupPoints }}" required>
+                        <option value="">-- Preferred Pickup Point --</option>
+                    </select>
+
+                    <div ng-show="(orderform.pickuppoint.$dirty && orderform.pickuppoint.$invalid)
+                        || (orderform.pickuppoint.$invalid && orderform.submitted)"
+                         class="text-danger">
+                        <small ng-show="orderform.pickuppoint.$error.required">
+                            Pickup point is required.
+                        </small>
+                    </div>
+                </div>
+
+                <h4>Instructions</h4>
+
+                <div class="form-group">
+                <textarea ng-model="order.instructions" class="form-control" id="inputMessage" rows="4"
+                          placeholder="Do you have any special requests or instructions regarding your order? Like frosting colors, if applicable."></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xs-12">
+                <h4>Your Contact Details</h4>
+
+                <div class="form-group"
+                     ng-class="{'has-error' : (orderform.contactname.$dirty && orderform.contactname.$invalid)
+                        || (orderform.contactname.$invalid && orderform.submitted)}">
+                    <div ng-if="loggedIn()">
+                        Display username and first name.
+                    </div>
+                    <!--<div ng-if="!loggedIn()">-->
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="contactname" placeholder="Name"
+                                   ng-model="order.contactname" ng-minlength="5" required>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        </div>
+                        <div ng-show="(orderform.contactname.$dirty && orderform.contactname.$invalid)
+                            || (orderform.contactname.$invalid && orderform.submitted)"
+                             class="text-danger">
+                            <small ng-show="orderform.contactname.$error.required">
+                                Your name is required.
+                            </small>
+                            <small ng-show="orderform.contactname.$error.minlength">
+                                Your name is required to be at least 5 characters.
+                            </small>
+                        </div>
+                    <!--</div>-->
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : (orderform.contactemail.$dirty && orderform.contactemail.$invalid)
+                        || (orderform.contactemail.$invalid && orderform.submitted)}">
+                    <div class="input-group">
+                        <input type="email" class="form-control" name="contactemail" placeholder="Email address"
+                               ng-model="order.contactemail" ng-minlength="5" required>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    </div>
+                    <div ng-show="(orderform.contactemail.$dirty && orderform.contactemail.$invalid)
+                        || (orderform.contactemail.$invalid && orderform.submitted)"
+                         class="text-danger">
+                        <small ng-show="orderform.contactemail.$error.required">
+                            Your email is required.
+                        </small>
+                        <small ng-show="orderform.contactemail.$error.minlength">
+                            Your email is required to be at least 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : (orderform.contactphone.$dirty && orderform.contactphone.$invalid)
+                        || (orderform.contactphone.$invalid && orderform.submitted)}">
+                    <div class="input-group">
+                        <input ng-model="order.contactphone" ng-pattern="/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/"  type="text" class="form-control"
+                               name="contactphone" placeholder="Contact number" required>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                    </div>
+                    <div ng-show="(orderform.contactphone.$dirty && orderform.contactphone.$invalid)
+                        || (orderform.contactphone.$invalid && orderform.submitted)"
+                         class="text-danger">
+                        <small>
+                            Your phone number is required.
+                        </small>
+                    </div>
+                </div>
+                <!--<hr>-->
+                <div class="bg-warning">
+                    <p>Please note that we need to confirm your order via
+                        email/phone. All payments will be made upon order pickup.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xs-12">
+                <h4>Place order</h4>
+
+                <div class="panel panel-default">
+                    <h4 class="text-center">Everything looks good.</h4>
+
+                    <h3 class="text-center"><strong>I'm all set! <i class="fa fa-smile-o"></i></strong></h3>
+                    <br>
+                    <button style="width: 90%" class="center-block btn btn-want-some btn-lg" type="submit">
+                        <h1>SUBMIT</h1>
+                    </button>
+                    <br>
+                    <div ng-show="newordermessage">
+                        <p class="bg-success">{{ newordermessage }}</p>
+                    </div>
+                    <br>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>

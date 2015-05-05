@@ -3,7 +3,7 @@
     Your cart is empty
 </div>
 
-<div class="table-responsive col-lg-12" ng-show="ngCart.getTotalItems() > 0">
+<div class="panel panel-default table-responsive col-lg-12" ng-show="ngCart.getTotalItems() > 0">
 
     <table class="table table-striped ngCart cart">
 
@@ -35,8 +35,8 @@
             <td></td>
             <td></td>
             <td></td>
-            <td>Total:</td>
-            <td>{{ ngCart.totalCost() | currency }}</td>
+            <td><strong>Total:</strong></td>
+            <td><strong>{{ ngCart.totalCost() | currency }}</strong></td>
         </tr>
         </tfoot>
         <tbody>

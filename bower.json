@@ -8,6 +8,7 @@
     "angular": "latest",
     "angular-route": "latest",
     "angular-bootstrap": "latest",
-    "angular-touch": "latest"
+    "angular-touch": "latest",
+    "jasny-bootstrap": "~3.1.3"
   }
 }
