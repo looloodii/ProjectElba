@@ -8,6 +8,7 @@ angular.module('OrderService', []).factory('Order', ['$http', function($http) {
 
         // create new order
         create : function(orderDetails) {
+            console.log("Order create service.")
             return $http.post('/api/order', orderDetails);
         },
 

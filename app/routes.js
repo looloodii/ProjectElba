@@ -31,6 +31,20 @@ module.exports = function(app) {
     });
 
     app.post('/api/order', function(req, res) {
+        console.log("Order post API route");
+
+        var newOrder = new Order(req.body);
+        console.log(newOrder);
+
+        newOrder.save(function(err) {
+            if (err) {
+                console.log('Order error: ' + err);
+                res.send(err);
+            } else {
+                console.log('Order saved successfully!');
+            }
+            res.json(newOrder._id);
+        });
 
     });
 

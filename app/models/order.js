@@ -7,21 +7,19 @@ var ItemSchema = new mongoose.Schema({
 });
 
 var OrderSchema = new mongoose.Schema({
-    orderId: { type: String, unique:true },
-    created: Date,
+    created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },
     status: String,
-
-    userName: String,
-    contactNumber: String,
-    email: String,
-    eventDate: Date,
+    contactName: String,
+    contactPhone: String,
+    contactEmail: String,
+    pickupDate: Date,
     itemList: [ItemSchema],
     instructions: String,
     totalPrice: Number,
-    pickupPoint: String
+    pickupLocation: String
 });
 
-OrderSchema.path('orderId').index({ unique:true });
+//OrderSchema.path('orderId').index({ unique:true });
 
 module.exports = mongoose.model('Order', OrderSchema);
