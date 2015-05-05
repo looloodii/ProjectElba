@@ -4,17 +4,17 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
         // home page
         .when('/', {
-            templateUrl: 'views/home.html',
+            templateUrl: 'views/home/home.html',
             controller: 'SplashController'
         })
 
         .when('/catalogue', {
-            templateUrl: 'views/catalogue.html',
+            templateUrl: 'views/order/catalogue.html',
             controller: 'CatalogueController'
         })
 
         .when ('/catalogue/:categoryId', {
-            templateUrl: 'views/catalogue.html',
+            templateUrl: 'views/order/catalogue.html',
             controller: 'CatalogueController'
         })
 
@@ -29,7 +29,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         })
 
         .when('/orders', {
-            templateUrl: 'views/orders.html',
+            templateUrl: 'views/order/orders.html',
             controller: 'OrderController'
         })
 
@@ -39,7 +39,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         })
 
         .when('/cart', {
-            templateUrl: 'views/cart.html',
+            templateUrl: 'views/order/cart.html',
             controller: 'OrderController'
         })
 

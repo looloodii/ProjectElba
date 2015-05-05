@@ -7,12 +7,12 @@
 
     <title>Shop The Elba Diaries</title>
 
+    <link href="http://www.theelbadiaries.com/favicon.ico" rel="icon" type="image/x-icon">
+
     <!-- CSS -->
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
-    <!-- custom styles -->
     <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-    <!-- custom styles -->
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,300' type='text/css'>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700" type="text/css">
 
@@ -43,8 +43,8 @@
 <div class="container-fluid" style="width: 1100px">
 
     <!-- HEADER -->
-    <header ng-include="'views/bannerlogo.html'"></header>
-    <header ng-include="'views/navbar.html'"></header>
+    <header ng-include="'views/static/bannerlogo.html'"></header>
+    <header ng-include="'views/static/navbar.html'"></header>
 
     <!-- ANGULAR DYNAMIC CONTENT -->
     <div class="ng-view" autoscroll="true"></div>
@@ -52,7 +52,7 @@
 </div>
 
 <!-- FOOTER -->
-<div ng-include="'views/footer.html'"></div>
+<div ng-include="'views/static/footer.html'"></div>
 
 
 </body>
