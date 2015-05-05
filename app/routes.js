@@ -1,6 +1,6 @@
 var Product = require('./models/product');
 var Order = require('./models/order');
-//var User = require('./models/user');
+var User = require('./models/user');
 
 module.exports = function(app) {
 
@@ -50,21 +50,10 @@ module.exports = function(app) {
 
     // USER
 
-    // POST api/user/
+    // POST create user
     app.post('/api/user', function(req, res) {
 
-        var User = require('./models/user');
-
-        var newUser = new User({
-            username : req.body.form.username,
-            firstName:  req.body.form.firstName,
-            lastName: req.body.form.lastName,
-            password: req.body.form.password,
-            email: req.body.form.email,
-            mobileNumber: req.body.form.mobileNumber,
-            location: req.body.form.location
-
-        });
+        var newUser = new User(req.body);
 
         newUser.save(function(err) {
             if (err){
@@ -75,6 +64,25 @@ module.exports = function(app) {
         });
 
         return res.send(newUser);
+    });
+
+    // GET user by username
+    app.get('/api/user/:username', function(req, res) {
+        console.log("find");
+        User.find({ 'username': req.params.username }, function(err, user) {
+            if (err)
+                res.send(err);
+
+            console.log(user);
+            res.json(user);
+
+        });
+    });
+
+    app.post('/api/login', function(req, res) {
+        console.log("login");
+
+
     });
 
     // frontend routes =========================================================

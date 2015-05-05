@@ -1,7 +1,7 @@
 angular.module('UserService', []).factory('User', ['$http', function($http) {
 
     return {
-        // call to get products by category
+        /*// create user
         create: function (req) {
             return $http.post('/api/user', {form: req}).success(function(data, status, headers, config){
                 //handle success
@@ -9,7 +9,25 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
             }).error(function(data, status, headers, config){
                 //handle error
             });
+        },*/
+
+        get : function(userID) {
+            console.log("User get service.");
+            return $http.get('/api/user/' + userID);
+        },
+
+        // create new user
+        create : function(userDetails) {
+            console.log("User create service.");
+            return $http.post('/api/user', userDetails);
+        },
+
+        login : function(userDetails) {
+            console.log("User login service.");
+            return $http.post('/api/login', userDetails);
         }
+
+
     };
 
 }]);
