@@ -415,6 +415,7 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
             templateUrl: 'template/ngCart/checkout.html'
         };
     }]);
+
 angular.module('ngCart.fulfilment', [])
     .service('fulfilmentProvider', ['$injector', function($injector){
 

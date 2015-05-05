@@ -3,17 +3,20 @@
 
 </div>
 <div ng-show="attrs.id">
-    <div>
-        <span ng-show="quantityMax">
-            <select name="quantity" id="quantity" ng-model="q"
-                    ng-options=" v for v in qtyOpt"></select>
-        </span>
-        <!--ng-click="ngCart.addItem(id, name, price, q, data)"-->
-        <a class="btn btn-sm btn-primary"
-           ng-click="ngCart.addItem(id, name, price, q, data); resetQ()"
-           ng-transclude></a>
+    <div class="row flavor-cart">
+        <div class="col-xs-6 cart-quantity" ng-show="quantityMax">
+            <select class="form-control" name="quantity" id="quantity" ng-model="q"
+                    ng-options="v for v in qtyOpt"></select>
+        </div>
+
+        <button class="col-xs-3 btn btn-plus-cart"
+                ng-click="ngCart.addItem(id, name, price, q, data); resetQ()"
+                ng-transclude></button>
+
+        <div class="col-xs-3"  ng-show="inCart()">
+            <!--This item is in your cart. <a ng-click="ngCart.removeItemById(id)" style="cursor: pointer;">Remove</a>-->
+            <p class="text-success"><i class="fa fa-check fa-lg" style="padding-top: 10px"></i></p>
+        </div>
     </div>
-    <mark  ng-show="inCart()">
-        This item is in your cart. <a ng-click="ngCart.removeItemById(id)" style="cursor: pointer;">Remove</a>
-    </mark>
+
 </div>

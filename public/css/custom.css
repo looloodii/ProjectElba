@@ -38,6 +38,39 @@ h1 {
     background-color: rgba(255,255,255,1);
 }
 
+.btn-want-some {
+    background-color: rgba(247, 135, 41, 0.7);
+    border-radius: 0;
+    transition: all 0.25s ease-in-out;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+}
+
+.btn-want-some:hover, .btn-want-some:visited, .btn-want-some:active {
+    background-color: rgba(247, 135, 41, 0.9);
+    color: white;
+    outline: none;
+}
+
+.btn-want-some:focus, .btn-want-some:active:focus {
+    color: white;
+    outline: none;
+}
+
+.cart-quantity {
+    padding: 0 5px;
+}
+
+.flavor-cart {
+    padding: 10px;
+}
+
+.flavor-label {
+    padding: 15px 0;
+    font-family: 'Roboto', sans-serif;
+}
+
 .custom-nav {
     width: 800px;
     height: 50px;
@@ -157,17 +190,17 @@ footer .sign-up .form-control {
     border: solid;
 }
 
-.bg-button {
+.bg-button, .btn-plus-cart {
     background-color: rgba(146, 124, 133, 0.3);
     transition: all 0.25s ease-in-out;
 }
 
-.bg-button:hover {
-    background-color: rgba(146, 124, 133, 0.2);
+.bg-button:hover, .btn-plus-cart:hover {
+    background-color: rgba(146, 124, 133, 0.4);
 }
 
 a.bg-button:hover {
-    color: #5a5a5a;
+    color: #0d0d0d;
 }
 
 /* CUSTOMIZE THE CAROUSEL
@@ -335,3 +368,23 @@ body {
 /*Angular Bootstrap stuff*/
 /*.nav, .pagination, */
 .carousel, .panel-title a { cursor: pointer; }
+
+/*Add to cart*/
+
+.add-cart-panel {
+    margin: 20px 0;
+    padding: 20px;
+}
+
+/*input.ng-invalid {*/
+    /*border: 1px solid #a94442;*/
+/*}*/
+/*input.ng-valid {*/
+    /*border: 1px solid #3c763d;*/
+/*}*/
+
+/*.btn-plus-cart {*/
+    /*color: #fff;*/
+    /*background-color: #337ab7;*/
+    /*border-color: #2e6da4;*/
+/*}*/

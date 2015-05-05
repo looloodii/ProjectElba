@@ -35,7 +35,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
         .when('/cart', {
             templateUrl: 'views/cart.html',
-            controller: 'MainController'
+            controller: 'OrderController'
         })
 
         .when('/account', {
