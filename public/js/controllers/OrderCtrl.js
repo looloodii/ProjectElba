@@ -64,7 +64,8 @@ cart.controller('OrderController', function($scope, ngCart, Order) {
                 itemDetails.push({
                     'name' : item._id,
                     'quantity' : item._quantity,
-                    'price' : item._price
+                    'price' : item._price,
+                    'totalprice' : item.getTotal()
                 })
             });
 
