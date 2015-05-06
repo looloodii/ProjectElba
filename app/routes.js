@@ -127,6 +127,16 @@ module.exports = function(app, passport) {
             res.json(user);
         });
     });
+    app.put('/api/user', function(req, res) {
+        var updatedUser = new User(req.body);
+        var query = {'local.username':updatedUser.local.username};
+        User.update(query, req.body, {}, function(err,user){
+            if(err){
+                throw err;
+            }
+            return res.send("Succesfully saved!");
+        });
+    });
 
     app.post('/api/verifyuser', function(req, res) {
         sess = req.session;

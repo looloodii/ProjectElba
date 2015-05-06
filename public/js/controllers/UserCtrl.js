@@ -41,7 +41,7 @@ angular.module('UserCtrl', []).controller('UserController', function($scope, Use
             });
     };
 
-    $scope.createUser = function() {
+    /*$scope.createUser = function() {
             var userDetails = {
                 'username' : $scope.user.username,
                 'firstName':  $scope.user.firstName,
@@ -56,6 +56,24 @@ angular.module('UserCtrl', []).controller('UserController', function($scope, Use
                 .success(function (data) {
                     $scope.newUserMessage = data;
                 });
+    };*/
+
+    $scope.updateUser = function() {
+        var userDetails = {
+            'local':{
+                'username' : $scope.user.local.username,
+                'password' : $scope.user.local.password
+            },
+            'firstName':  $scope.user.firstName,
+            'lastName': $scope.user.lastName,
+            'email': $scope.user.email,
+            'mobileNumber': $scope.user.mobileNumber,
+            'location': $scope.user.location
+        };
+        User.update(userDetails)
+            .success(function (data) {
+                $scope.updateMessage = data;
+            });
     }
 
 });

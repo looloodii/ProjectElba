@@ -25,7 +25,11 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
 
         login : function(userDetails) {
             return $http.post('/api/login', userDetails);
+        },
+        update : function(userDetails) {
+            return $http.put('/api/user', userDetails);
         }
+
 
 
     };
