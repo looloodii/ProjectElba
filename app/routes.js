@@ -38,13 +38,10 @@ module.exports = function(app, passport) {
     var sess;
 
     app.get('/logout', function(req, res) {
-        sess = req.session;
-        session.user = null;
-        req.logout();
-        res.redirect('/');
+        req.session.destroy(function (err) {
+            res.redirect('/login'); //Inside a callback… bulletproof!
+        });
     });
-
-
 
     function isLoggedIn(req, res, next) {
 
