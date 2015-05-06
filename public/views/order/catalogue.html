@@ -7,13 +7,16 @@
     <div ng-cloak id="cakesCtlg" class="row featurette">
         <div class="col-md-7 col-xs-6">
             <!-- <a href="" ng-click="getCakes()"></a> -->
-            <h2 class="featurette-heading">Cakes<span
-                    class="text-muted"></span></h2>
+            <h2 class="featurette-heading">Cakes<span class="text-muted"></span></h2>
 
-            <p class="lead">Have your cake and eat it too. Chocolate, vanilla, salted caramel, 6 inches, 4 inches, 8 inches.
+            <p class="lead">Have your cake and eat it too. Chocolate, vanilla, salted caramel, 6 inches, 4 inches, 8
+                inches.
                 Whatever you fancy.</p>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper.
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
         </div>
         <div class="col-md-5 col-xs-6">
             <img class="featurette-image img-responsive center-block" alt="Cakes"
@@ -47,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-if="!cake.flavors[0]" class="col-md-7 col-md-offset-3 col-xs-7 col-xs-offset-3" >
+                    <div ng-if="!cake.flavors[0]" class="col-md-7 col-md-offset-3 col-xs-7 col-xs-offset-3">
                         <ngcart-addtocart id="{{ cake.name }}" name="{{ cake.name }}" price="{{ cake.price }}"
                                           quantity="1"
                                           quantity-max="5">
@@ -58,7 +61,6 @@
             </div>
         </div>
     </div>
-</div>
 
     <hr class="featurette-divider">
 
@@ -67,9 +69,15 @@
     <div ng-cloak id="cupcakesCtlg" class="row featurette">
         <div class="col-md-7 col-md-push-5 col-xs-6">
             <h2 class="featurette-heading">Cupcakes <span class="text-muted"></span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper.
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
         </div>
         <div class="col-md-5 col-md-pull-7 col-xs-6">
             <img class="featurette-image img-responsive center-block" alt="Cupcakes"
@@ -82,6 +90,7 @@
         <div class="col-md-4 col-xs-4" ng-repeat="cupcake in cupcakeRow">
             <img ng-src="{{ cupcake.imageUrl }}" class="img-responsive">
             <h4>{{ cupcake.name }}</h4>
+
             <p>{{ cupcake.description }} <strong>${{ cupcake.price }}</strong></p>
             <br>
 
@@ -102,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-if="!cupcake.flavors[0]" class="col-md-7 col-md-offset-3 col-xs-7 col-xs-offset-3" >
+                    <div ng-if="!cupcake.flavors[0]" class="col-md-7 col-md-offset-3 col-xs-7 col-xs-offset-3">
                         <ngcart-addtocart id="{{ cupcake.name }}" name="{{ cupcake.name }}" price="{{ cupcake.price }}"
                                           quantity="1" quantity-max="5">
                             <i class="fa fa-plus"></i>
@@ -123,8 +132,11 @@
                     class="text-muted"></span></h2>
 
             <p class="lead">Delightful, delicate, and all kinds of pretty. These are little nubbins of delight.</p>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper.
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
         </div>
         <div class="col-md-5 col-xs-6">
             <img class="featurette-image img-responsive center-block" alt="Macarons"
@@ -137,6 +149,7 @@
         <div class="col-md-4 col-xs-4" ng-repeat="macaron in macaronRow">
             <img ng-src="{{ macaron.imageUrl }}" class="img-responsive">
             <h4>{{ macaron.name }}</h4>
+
             <p>{{ macaron.description }} <strong>${{ macaron.price }}</strong></p>
             <br>
 
@@ -163,9 +176,13 @@
     <div ng-cloak id="treatsCtlg" class="row featurette">
         <div class="col-md-7 col-md-push-5 col-xs-6">
             <h2 class="featurette-heading">Other Treats <span class="text-muted"></span></h2>
+
             <p class="lead">Brownies, cookies, paleo cookies, laces cookies, and more.</p>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper.
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
         </div>
         <div class="col-md-5 col-md-pull-7 col-xs-6">
             <img class="featurette-image img-responsive center-block" alt="Other Treats"
@@ -178,6 +195,7 @@
         <div class="col-md-4 col-xs-4" ng-repeat="treat in treatRow">
             <img ng-src="{{ treat.imageUrl }}" class="img-responsive">
             <h4>{{ treat.name }}</h4>
+
             <p>{{ treat.description }} <strong>${{ treat.price }}</strong></p>
             <br>
 
@@ -204,7 +222,9 @@
     <div ng-cloak id="customCtlg" class="row featurette">
         <div class="col-md-7 col-xs-6">
             <h2 class="featurette-heading">Custom Orders <span class="text-muted"></span></h2>
-            <p class="lead">Is there an event that requires special attention? Let us know and we'll be happy to help.</p>
+
+            <p class="lead">Is there an event that requires special attention? Let us know and we'll be happy to
+                help.</p>
             <a ng-href="/contact" href="#" class="btn-splash btn btn-lg bg-button" role="button">
                 <h1>Inquire Now</h1>
             </a>

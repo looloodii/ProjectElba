@@ -14,8 +14,8 @@
                 <div class="form-group"
                      ng-class="{'has-error' : ordersearchform.orderid.$dirty && ordersearchform.orderid.$invalid}">
 
-                    <input type="text" class="form-control input-lg" name="orderid" placeholder="Enter Order ID"
-                           ng-model="orderId" required>
+                    <input type="text" class="form-control input-lg" name="orderid"
+                           placeholder="Enter Order Confirmation Number" ng-model="orderId" required>
 
                     <div ng-show="ordersearchform.orderid.$dirty && ordersearchform.orderid.$invalid"
                          class="text-danger">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <a ng-href="/orders" href="#" style="width: 100%" class="btn btn-want-some btn-lg" role="button"
+                <a ng-href="/orders/{{orderId}}" href="#" style="width: 100%" class="btn btn-want-some btn-lg" role="button"
                    ng-disabled="ordersearchform.$invalid">
                     <h1>LET'S GO!</h1>
                 </a>

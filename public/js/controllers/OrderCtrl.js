@@ -1,6 +1,6 @@
 cart = angular.module('OrderCtrl', []);
 
-cart.controller('OrderController', function($scope, ngCart, Order) {
+cart.controller('OrderController', function($scope, $location, $routeParams, ngCart, Order) {
 
     //Event Date Picker
 
@@ -48,23 +48,23 @@ cart.controller('OrderController', function($scope, ngCart, Order) {
 
     $scope.resetCart = function() {
         $scope.order = angular.copy($scope.emptyOrder);
-        $scope.submitted = false;
+        $scope.orderform.submitted = false;
         ngCart.empty();
     };
 
     $scope.createOrder = function() {
-        $scope.submitted = false;
+        $scope.orderform.submitted = false;
         console.log('totalItems: ' + ngCart.getTotalItems());
 
         if ($scope.orderform.$valid) {
             // Submit as normal
-
             var itemDetails = [];
             angular.forEach(ngCart.getItems(), function(item) {
                 itemDetails.push({
                     'name' : item._id,
                     'quantity' : item._quantity,
-                    'price' : item._price
+                    'price' : item._price,
+                    'totalprice' : item.getTotal()
                 })
             });
 
@@ -83,7 +83,13 @@ cart.controller('OrderController', function($scope, ngCart, Order) {
 
             Order.create(orderDetails)
                 .success(function (data) {
-                    $scope.newordermessage = data;
+                    if (data.error) {
+                        $scope.newOrderError = data.errMsg;
+                    } else {
+                        $scope.resetCart();
+                        //$scope.$broadcast('createdOrderId', data.orderId);
+                        $location.path('/orders/' + data.orderId);
+                    }
                 });
 
         } else {
@@ -101,5 +107,10 @@ cart.controller('OrderController', function($scope, ngCart, Order) {
         return true;
     }
 
+    if ($routeParams.orderId) {
+        Order.get($routeParams.orderId).success(function(data) {
+            $scope.order = data[0];
+        });
+    }
 
 });
