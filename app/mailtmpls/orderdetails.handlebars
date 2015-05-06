@@ -25,14 +25,15 @@
         <th width="20%">Quantity</th>
         <th width="20%">Total Price</th>
     </tr>
-    <tr style="text-align: center; padding: 10px;">
-        {{#each items}}
+    {{#each items}}
+        <tr style="text-align: center; padding: 10px;">
+
             <td>{{ this.name }}</td>
             <td>{{ this.price }}</td>
             <td>{{ this.quantity }}</td>
             <td>{{ this.totalprice }}</td>
-        {{/each}}
-    </tr>
+        </tr>
+    {{/each}}
     <tr style="padding: 10px;" bgcolor="#F4EFEB">
         <td colspan="3" align="right"><strong>Order Total: </strong></td>
         <td align="center"><strong>{{ totalprice }}</strong></td>

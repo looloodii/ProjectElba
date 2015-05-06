@@ -33,6 +33,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'OrderController'
         })
 
+        .when('/orders/:orderId', {
+            templateUrl: 'views/order/orders.html',
+            controller: 'OrderController'
+        })
+
         .when('/contact', {
             templateUrl: 'views/contact.html',
             controller: 'MainController'

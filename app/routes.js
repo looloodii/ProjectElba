@@ -54,7 +54,6 @@ module.exports = function(app, passport) {
 
     // GET api/catalogue/:category
     app.get('/api/catalogue/:category', function(req, res) {
-
         Product.find({ 'category': req.params.category }, function(err, products) {
             if (err)
                 res.send(err);
@@ -67,8 +66,7 @@ module.exports = function(app, passport) {
 
     // GET by orderId
     app.get('/api/order/:id', function(req, res) {
-
-        Order.find({ 'orderId': req.params.orderId }, function(err, order) {
+        Order.find({ '_id': req.params.id }, function(err, order) {
             if (err)
                 res.send(err);
 
@@ -77,22 +75,24 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api/order', function(req, res) {
-
         var newOrder = new Order(req.body);
         //console.log(newOrder);
 
         // Save order in DB
         newOrder.save(function(err) {
+            var response = {};
             if (err) {
                 console.log('Order error: ' + err);
-                res.send(err);
+                response = { error : true, errMsg: err };
             } else {
                 console.log('Order saved successfully!');
+                response = { orderId : newOrder._id };
 
                 // Send email to customer
                 mailer.mailOrderDetails(newOrder);
             }
-            res.json(newOrder._id);
+
+            res.json(response);
         });
     });
 
