@@ -1,6 +1,7 @@
 var Product = require('./models/product');
 var Order = require('./models/order');
 var User = require('./models/user');
+var mailer = require('./mailer');
 
 module.exports = function(app, passport) {
 
@@ -76,21 +77,23 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api/order', function(req, res) {
-        console.log("Order post API route");
 
         var newOrder = new Order(req.body);
-        console.log(newOrder);
+        //console.log(newOrder);
 
+        // Save order in DB
         newOrder.save(function(err) {
             if (err) {
                 console.log('Order error: ' + err);
                 res.send(err);
             } else {
                 console.log('Order saved successfully!');
+
+                // Send email to customer
+                mailer.mailOrderDetails(newOrder);
             }
             res.json(newOrder._id);
         });
-
     });
 
     // USER

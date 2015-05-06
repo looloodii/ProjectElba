@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var ItemSchema = new mongoose.Schema({
     name: String,
     quantity: Number,
-    price: Number
+    price: Number,
+    totalprice: Number
 });
 
 var OrderSchema = new mongoose.Schema({

@@ -1,0 +1,94 @@
+<div style="display: block; text-align: center;">
+    <img src="http://res.cloudinary.com/chassiness/image/upload/c_scale,w_600/v1428661682/minimalist_logo_3_j4b4kc.png">
+</div>
+
+<p>Hi <span style="text-transform: capitalize"><strong>{{ contactname }}</strong></span>!</p>
+
+<p>Thank you for ordering from The Elba Diaries. Your order confirmation number is <strong>{{ orderid }}</strong> and we
+    will get in touch with you shortly to finalize the transaction.</p>
+
+<p>At any time, you can go online to <a href="http://shop.theelbadiaries.com">shop.theelbadiaries.com</a> to review your
+    order status or retrieve the order tracking number by clicking on the My Account link located at the top of every
+    page.</p>
+
+<p>Your order reads as follows: </p>
+
+<table width="100%">
+    <tr>
+        <td colspan="4" align="center" bgcolor="#F4EFEB">
+            <h2>Order <strong>{{ orderid }}</strong></h2>
+        </td>
+    </tr>
+    <tr height="30px" style="padding: 10px;">
+        <th width="40%">Item Name</th>
+        <th width="20%">Unit Price</th>
+        <th width="20%">Quantity</th>
+        <th width="20%">Total Price</th>
+    </tr>
+    <tr style="text-align: center; padding: 10px;">
+        {{#each items}}
+            <td>{{ this.name }}</td>
+            <td>{{ this.price }}</td>
+            <td>{{ this.quantity }}</td>
+            <td>{{ this.totalprice }}</td>
+        {{/each}}
+    </tr>
+    <tr style="padding: 10px;" bgcolor="#F4EFEB">
+        <td colspan="3" align="right"><strong>Order Total: </strong></td>
+        <td align="center"><strong>{{ totalprice }}</strong></td>
+    </tr>
+</table>
+
+<table width="100%"
+       style="margin:20px 0; padding:20px 0; border-top: 1px solid #979797; border-bottom: 1px solid #979797;">
+    <tr>
+        <td width="25%" style="border-right: 1px solid #979797">
+            <table width="100%">
+                <tr>
+                    <th>Pickup Date</th>
+                </tr>
+                <tr align="center">
+                    <td>{{ pickupdate }} </td>
+                </tr>
+            </table>
+        </td>
+
+        <td width="25%" style="border-right: 1px solid #979797">
+            <table width="100%">
+                <tr>
+                    <th>Pickup Location</th>
+                </tr>
+                <tr align="center">
+                    <td>{{ pickuplocation }}</td>
+                </tr>
+            </table>
+        </td>
+
+        <td width="25%" style="border-right: 1px solid #979797">
+            <table width="100%">
+                <tr>
+                    <th>Contact Number</th>
+                </tr>
+                <tr align="center">
+                    <td>{{ contactnumber }}</td>
+                </tr>
+            </table>
+        </td>
+
+        <td width="25%">
+            <table width="100%">
+                <tr>
+                    <th>Instructions</th>
+                </tr>
+                <tr align="center">
+                    <td>{{ instructions }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<p>This completes your order.</p>
+
+<p>Sincerely,</p>
+<p> Chastine<br/>Head Baker at The Elba Diaries</p>
