@@ -133,7 +133,8 @@
 
                     <h3 class="text-center"><strong>I'm all set! <i class="fa fa-smile-o"></i></strong></h3>
                     <br>
-                    <button style="width: 90%" class="center-block btn btn-want-some btn-lg" type="submit">
+                    <button style="width: 90%" class="center-block btn btn-want-some btn-lg"
+                            type="submit" ng-disabled="orderform.$invalid || isCartEmpty()">
                         <h1>SUBMIT</h1>
                     </button>
                     <br>
