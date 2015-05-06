@@ -391,11 +391,16 @@ body {
 
 .ordersearch {
     padding: 20px 50px;
+    margin: 50px 0;
 }
 
 .ordersearch .heading {
     margin-top: 20px;
     font-size: 50px;
+}
+
+.submit-panel {
+    padding: 20px;
 }
 
 /*.ordersearch .input-lg {*/
