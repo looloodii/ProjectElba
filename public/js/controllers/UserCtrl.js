@@ -1,7 +1,34 @@
-angular.module('UserCtrl', []).controller('UserController', function($scope, User) {
+angular.module('UserCtrl', []).controller('UserController', function($scope, User, $route, $location) {
 
-    $scope.tagline = 'Register Now!';
+    $scope.tagline = 'Sign Up Now!';
 
+    $scope.regEmail =  $route.current.params.regEmail;
+    var username = $route.current.params.username;
+    var loc = $location.path();
+
+    if(loc == "/account"){
+        var obj = {};
+        User.verify(obj).success(function (data) {
+            if(data!=null){
+                $scope.user = data;
+            }
+            else{
+                $location.path('/signin');
+            }
+        }).error(function (data) {
+            console.log("error");
+        });
+
+    }
+
+    if(username!=null) {
+        User.get(username).success(function (data) {
+            $scope.user = data;
+            if ($scope.user.local == undefined) {
+                $location.path('/signin');
+            }
+        });
+    }
     $scope.login = function(){
         var userDetails = {
             'username' : $scope.login.username,
@@ -11,19 +38,10 @@ angular.module('UserCtrl', []).controller('UserController', function($scope, Use
         User.login(userDetails)
             .success(function (data) {
                 $scope.loggedIn() == true;
-                //$scope.newUserMessage = data;
             });
-
-
     };
 
     $scope.createUser = function() {
-        //$scope.submitted = false;
-       // if ($scope.orderform.$valid) {
-            // Submit as normal
-
-
-
             var userDetails = {
                 'username' : $scope.user.username,
                 'firstName':  $scope.user.firstName,
@@ -38,13 +56,6 @@ angular.module('UserCtrl', []).controller('UserController', function($scope, Use
                 .success(function (data) {
                     $scope.newUserMessage = data;
                 });
-
-        /*} else {
-            $scope.orderform.submitted = true;
-            console.log('Invalid form.');
-            console.log($scope.orderform.$error);
-            console.log($scope.orderdate);
-        }*/
     }
 
 });

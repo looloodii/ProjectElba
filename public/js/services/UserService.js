@@ -13,7 +13,11 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
 
         get : function(userID) {
             console.log("User get service.");
-            return $http.get('/api/user/' + userID);
+            return $http.post('/api/user/' + userID);
+        },
+        verify : function(param) {
+            console.log("User verify service.");
+            return $http.post('/api/verifyuser', param);
         },
 
         // create new user

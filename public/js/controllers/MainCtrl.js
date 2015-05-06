@@ -4,7 +4,9 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
 
 
     $scope.register = function() {
-       $location.path('/register', $scope);
+        console.log($scope.regEmail);
+       $location.path('/register').search({regEmail: $scope.regEmail});
+
     };
 
     $scope.getTotalItems = function() {

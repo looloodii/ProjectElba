@@ -54,12 +54,11 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/public/views');
-
 // required for passport
 app.use(session({ secret: 'samplesessionsecret' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+//app.use(flash()); // use connect-flash for flash messages stored in session
 
 // set the static files location /public/img will be /img for users
 // =============================================================================
