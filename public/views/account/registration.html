@@ -1,0 +1,130 @@
+<div class="marketing">
+
+    <div class="img-container">
+        <img class="img-responsive"
+             src="http://res.cloudinary.com/chassiness/image/upload/b_rgb:000,c_crop,h_150,o_60,w_1100/v1428704039/P1180557_itm8od.jpg">
+
+        <div class="img-caption-overlay-sm text-uppercase">Sign Up!</div>
+    </div>
+
+    <div class="row featurette">
+        <!-- <% if (message.length > 0) { %>
+         <div class="alert alert-danger"><%= message %></div>
+         <% } %>
+         {{message}}  ng-pattern="/[^\s-]/"-->
+        <div class="col-md-12 col-xs-12" ng-controller="UserController">
+            <form class="form-horizontal"  name="signup_form" action="/signup" method="post" novalidate>
+                <div class="form-group">
+                    <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputUsername" name="username" ng-model="username"
+                               placeholder="Username" required ng-maxlength=16 ng-minlength=3 >
+                        <div ng-show="signup_form.username.$dirty && signup_form.username.$invalid">
+                            <small ng-show="signup_form.username.$error.required">
+                                Your name is required.
+                            </small>
+                            <small class="error" ng-show="signup_form.username.$error.minlength">
+                                Your name is required to be at least 3 characters
+                            </small>
+                            <small class="error" ng-show="signup_form.username.$error.maxlength">
+                                Your name cannot be longer than 16 characters
+                            </small>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword" name="password" ng-model="password"
+                               placeholder="Password" name="password" required>
+                        <div ng-show="signup_form.password.$dirty && signup_form.password.$invalid">
+                            <small ng-show="signup_form.username.$error.required">
+                                Your password is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputFirstName" name="firstName" ng-model="firstName"
+                               placeholder="First Name" required>
+                        <div ng-show="signup_form.firstName.$dirty && signup_form.firstName.$invalid">
+                            <small ng-show="signup_form.firstName.$error.required">
+                                Your first name is required.
+                            </small>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputLastName" name="lastName" ng-model="lastName"
+                               placeholder="Last Name" required>
+                        <div ng-show="signup_form.lastName.$dirty && signup_form.lastName.$invalid">
+                            <small ng-show="signup_form.lastName.$error.required">
+                                Your last name is required.
+                            </small>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail" name="email" ng-model="email"
+                               placeholder="Email" required>
+
+                        <div ng-show="signup_form.email.$dirty && signup_form.email.$invalid">
+                            <small ng-show="signup_form.email.$error.required">
+                                Your email is required.
+                            </small>
+                            <small class="error" ng-show="signup_form.email.$error.email">
+                                That is not a valid email. Please input a valid email.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputMobileNumber" class="col-sm-2 control-label">Mobile Number</label>
+
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputMobileNumber" name="mobileNumber" ng-model="mobileNumber"
+                               placeholder="Mobile Number" required>
+                        <div ng-show="signup_form.mobileNumber.$dirty && signup_form.mobileNumber.$invalid">
+                            <small ng-show="signup_form.mobileNumber.$error.required">
+                                Your mobile number is required.
+                            </small>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputLocation" class="col-sm-2 control-label">Location</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputLocation" name="location" ng-model="location"
+                               placeholder="Location">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" ng-disabled="signup_form.$invalid" class="btn btn-default">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+

@@ -48,20 +48,32 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'OrderController'
         })
 
-        /*.when('/register', {
-            templateUrl: '/registration',
-            controller: 'UserController'
-        });
-
-        .when('/account', {
-            templateUrl: 'views/profile.html',
+        .when('/register', {
+            templateUrl: 'views/account/registration.html',
             controller: 'UserController'
         })
 
-        .when('/profile', {
-            templateUrl: 'views/profile.html',
+        .when('/account', {
+            templateUrl: 'views/account/profile.html',
             controller: 'UserController'
-        });*/
+        })
+        .when('/user/:username', {
+            templateUrl: 'views/account/profile.html',
+            controller: 'UserController'
+        })
+        .when('/profile', {
+            templateUrl: 'views/account/profile.html',
+            controller: 'UserController'
+        })
+        .when('/user/:username', {
+            templateUrl: 'views/account/profile.html',
+            controller: 'UserController'
+        })
+
+        .when('/signin', {
+            templateUrl: 'views/account/login.html',
+            controller: 'UserController'
+        });
 
 
     $locationProvider.html5Mode(true);
