@@ -2,9 +2,9 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
 
     $scope.tagline = 'To the moon and back!';
 
-
     $scope.register = function() {
-       $location.path('/register', $scope);
+       $location.path('/register').search({regEmail: $scope.regEmail});
+
     };
 
     $scope.getTotalItems = function() {

@@ -7,36 +7,41 @@ module.exports = function(app, passport) {
 
     //login
     app.get('/login', function(req, res) {
-       // res.render('login.ejs', { message: req.flash('loginMessage') });
-        res.sendfile('./public/views/login.html');
+        res.redirect('/signin');
     });
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/login', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
+    app.post('/login', function(req, res, next) {
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) { return next(err); }
+            if (!user) { return res.redirect('/login'); }
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+                return res.redirect('/user/' + user.local.username);
+            });
+        })(req, res, next);
+    });
+
     app.get('/signup', function(req, res) {
-       // res.render('registration.ejs', { message: req.flash('signupMessage') });
-        res.sendfile('./public/views/registration.html', { message: req.flash('signupMessage') });
+        res.redirect('/register');
     });
-    // process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
-    app.get('/profile', isLoggedIn, function(req, res) {
-      /*  res.render('profile.ejs', {
-            user : req.user // get the user out of session and pass to template
-        });*/
-        res.sendfile('./public/views/profile.html', { message: req.flash('signupMessage') });
+
+    app.post('/signup', function(req, res, next) {
+        passport.authenticate('local-signup', function(err, user, info) {
+            if (err) { return next(err); }
+            if (!user) { return res.redirect('/signup'); }
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+                return res.redirect('/user/' + user.local.username);
+            });
+        })(req, res, next);
     });
+
+    var sess;
+
     app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
+        req.session.destroy(function (err) {
+            res.redirect('/login'); //Inside a callback… bulletproof!
+        });
     });
-
-
 
     function isLoggedIn(req, res, next) {
 
@@ -45,7 +50,7 @@ module.exports = function(app, passport) {
             return next();
 
         // if they aren't redirect
-        res.redirect('/signup');
+        res.redirect('/');
     };
 
 
@@ -115,22 +120,37 @@ module.exports = function(app, passport) {
     });
 
     // GET user by username
-    app.get('/api/user/:username', function(req, res) {
-        console.log("find");
-        User.find({ 'username': req.params.username }, function(err, user) {
+    app.post('/api/user/:username', isLoggedIn, function(req, res) {
+        User.findOne({ 'local.username': req.params.username }, function(err, user) {
             if (err)
                 res.send(err);
-
-            console.log(user);
             res.json(user);
-
         });
+    });
+    app.put('/api/user', function(req, res) {
+        var updatedUser = new User(req.body);
+        var query = {'local.username':updatedUser.local.username};
+        User.update(query, req.body, {}, function(err,user){
+            if(err){
+                throw err;
+            }
+            return res.send("Succesfully saved!");
+        });
+    });
+
+    app.post('/api/verifyuser', function(req, res) {
+        sess = req.session;
+        sess.user = req.user;
+        if(sess.user != undefined && sess.user != null){
+            res.json(sess.user);
+        }else{
+            res.json(null);
+        }
+
     });
 
     app.post('/api/login', function(req, res) {
         console.log("login");
-
-
     });
 
     // frontend routes =========================================================

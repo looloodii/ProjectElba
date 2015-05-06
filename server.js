@@ -54,7 +54,6 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/public/views');
-
 // required for passport
 app.use(session({ secret: 'samplesessionsecret' })); // session secret
 app.use(passport.initialize());
