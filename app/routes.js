@@ -155,6 +155,7 @@ module.exports = function (app, passport) {
             {$set: {status: 'CANCELLED', updated: new Date()}},
             {new: true},
             function (err, order) {
+                var response = {};
                 if (err) {
                     console.log('Order cancel error: ' + err);
                     response = {error: true, errMsg: err};
@@ -231,6 +232,19 @@ module.exports = function (app, passport) {
     // route to handle all angular requests
     app.get('*', function (req, res) {
         res.sendfile('./public/index.html'); // load our public/index.html file
+    });
+
+    //CONTACT FORM
+    app.post('/api/inquire', function (req, res) {
+        var response = {};
+        mailer.mailInquiry(req.body, function (err) {
+            if (err) {
+                response = {error: true, errMsg: err};
+            } else {
+                response = {successMsg: 'Details have been sent to the email you provided.'};
+            }
+        });
+        res.json(response);
     });
 
 };

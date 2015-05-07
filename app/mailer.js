@@ -53,6 +53,22 @@ var buildOrderDetailsOptions = function(subject, orderDetails, template) {
     };
 }
 
+var buildInquiryOptions = function(subject, inquiry, template) {
+    return {
+        from: shopElbaEmail,
+        to: inquiry.email,
+        bcc: elbaEmail,
+        subject: subject,
+        template: template,
+        context: {
+            name: inquiry.name,
+            email: inquiry.email,
+            type: inquiry.inquiryType,
+            message: inquiry.message
+        }
+    };
+}
+
 module.exports = {
 
     mailOrderDetails: function(orderDetails) {
@@ -91,7 +107,25 @@ module.exports = {
         });
     },
 
-    mailInquiry: function(inquiryDetails) {
+    mailInquiry: function(inquiry) {
+        var senderMailSubject = "Shop Elba Diaries - We got your message!";
+        var senderMailOptions = buildInquiryOptions(senderMailSubject, inquiry, 'inquiry');
 
+        //var elbaSubject = "New Inquiry from " + inquiry.name;
+        //var elbaMailOptions = buildInquiryOptions(elbaSubject, inquiry, 'inquiry');
+
+        send(senderMailOptions, function(err) {
+            if (err) {
+                console.log("Unable to send inquiry email: " + err);
+                return err;
+            }
+        });
+
+        //send(elbaMailOptions, function(err) {
+        //    if (err) {
+        //        console.log("Unable to send inquiry email: " + err);
+        //        return err;
+        //    }
+        //});
     }
 };
