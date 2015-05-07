@@ -36,12 +36,23 @@ module.exports = function (app, passport) {
                 return next(err);
             }
             if (!user) {
-                return res.redirect('/signup');
+                res.redirect('/register');
             }
             req.logIn(user, function (err) {
                 if (err) {
                     return next(err);
                 }
+
+                var response = {};
+                mailer.mailUserDetails(user, function (err) {
+                    if (err) {
+                        response = {error: true, errMsg: err};
+                    } else {
+                        response = {successMsg: 'Details have been sent to the email you provided.'};
+                    }
+                });
+                // res.json(response);
+
                 return res.redirect('/user/' + user.local.username);
             });
         })(req, res, next);
@@ -51,17 +62,13 @@ module.exports = function (app, passport) {
 
     app.get('/logout', function (req, res) {
         req.session.destroy(function (err) {
-            res.redirect('/login'); //Inside a callback� bulletproof!
+            res.redirect('/login');
         });
     });
 
     function isLoggedIn(req, res, next) {
-
-        // if user is authenticated in the session, carry on
         if (req.isAuthenticated())
             return next();
-
-        // if they aren't redirect
         res.redirect('/');
     };
 
@@ -87,7 +94,6 @@ module.exports = function (app, passport) {
         Order.find({'_id': req.params.id}, function (err, order) {
             if (err)
                 res.send(err);
-
             res.json(order);
         });
     });
@@ -196,7 +202,18 @@ module.exports = function (app, passport) {
 
     // GET user by username
     app.post('/api/user/:username', isLoggedIn, function (req, res) {
+        sess = req.session;
+        sess.user = req.user;
+        var username = sess.user.local.username;
+        User.findOne({'local.username': username}, function (err, user) {
+            if (err)
+                res.send(err);
+            res.json(user);
+        });
+    });
+    app.post('/api/check/:username', function (req, res) {
         User.findOne({'local.username': req.params.username}, function (err, user) {
+            console.log(user);
             if (err)
                 res.send(err);
             res.json(user);
