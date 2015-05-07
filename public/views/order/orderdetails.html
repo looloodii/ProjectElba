@@ -1,4 +1,4 @@
-<div class="marketing">
+<div ng-show="order" class="marketing">
 
     <div class="img-container">
         <img class="img-responsive"
@@ -7,45 +7,222 @@
         <div class="img-caption-overlay-sm text-uppercase">Your order details</div>
     </div>
 
-    {{ order }}
-
     <form name="orderdtlform">
 
-        <!--<div class="form-group">-->
-            <!--<label class="col-sm-2 control-label" for="contactName">Contact Name</label>-->
+        <div class="alert text-center"
+             ng-class="{'alert-success' : (order.status() == 'NEW' || order.status() == 'INPROCESS'),
+                'alert-info' : order.status()== 'COMPLETED', 'alert-danger' : order.status() == 'CANCELLED'}"
+             role="alert">
+            <h4>Order Number <strong>{{ order.orderDetails._id }}</strong></h4>
+            <p ng-show="mailMsg">{{ mailMsg }}</p>
+        </div>
 
-            <!--<div class="col-sm-10">-->
-                <!--<input type="text" class="form-control" id="contactName"-->
-                       <!--placeholder="Hi! What's your name?">-->
-            <!--</div>-->
-        <!--</div>-->
-        <!-- _id: "5549e7c4e6b755594f56632c"
-contactName: "Chastinr"
-contactPhone: "6506013829"
-contactEmail: "chastine.guyuyco@gmail.com"
-pickupDate: "2015-05-10T07:00:00.000Z"
-pickupLocation: "Shadow Cove Apartments"
-status: "NEW"
-totalPrice: 68
-__v: 0
-itemList: [2]
-0:  {
-name: "6-inch Cakes - Vanilla"
-quantity: 1
-price: 34
-totalprice: 34
-_id: "5549e7c4e6b755594f56632e"
-}-
-1:  {
-name: "6-inch Cakes - Salted Caramel"
-quantity: 1
-price: 34
-totalprice: 34
-_id: "5549e7c4e6b755594f56632d"
-}-
--
-updated: "2015-05-06T10:07:00.135Z"
-created: "2015-05-06T10:07:00.111Z"-->
+        <div ng-show="updateOrderSuccess" class="alert alert-success alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Clos
+                   e"><span aria-hidden="true">&times;</span></button>
+            {{ updateOrderSuccess }}
+        </div>
+
+        <div ng-show="updateOrderError" class="alert alert-danger alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Clos
+                   e"><span aria-hidden="true">&times;</span></button>
+            {{ updateOrderError }}
+        </div>
+
+        <div class="panel panel-default table-responsive col-lg-12">
+
+            <table class="table table-striped ngCart cart">
+
+                <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong>Total:</strong></td>
+                    <td><strong>{{ order.totalPrice() | currency }}</strong></td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr ng-repeat="item in order.getItems()">
+                    <td>
+                        <span ng-click="order.removeItemById(item._id)"
+                              ng-class="{'disabled':order.uniqueItemCount()==1}"
+                              class="glyphicon glyphicon-remove"></span>
+                    </td>
+
+                    <td>{{ item.name }}</td>
+                    <td><span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.quantity==1}"
+                              ng-click="order.updateQuantity(item._id, -1)"></span>&nbsp;&nbsp;
+                        {{ item.quantity | number }}&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-plus" ng-click="order.updateQuantity(item._id, 1)"></span></td>
+                    <td>{{ item.price | currency}}</td>
+                    <td>{{ item.totalprice | currency }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 col-xs-12">
+                <h4>Pickup/Meetup Date</h4>
+
+                <div class="form-group"
+                     ng-class="{'has-error' : (orderdtlform.pickupdate.$dirty && orderdtlform.pickupdate.$invalid)
+                        || (orderdtlform.pickupdate.$invalid && orderdtlform.submitted)}">
+                    <div class="input-group">
+                        <input ng-model="order.orderDetails.pickupDate" name="pickupdate"
+                               ng-disabled="!order.editable()"
+                               type="text" class="form-control" datepicker-popup="{{ dateFormat }}"
+                               is-open="opened" min-date="{{ minDate }}" max-date="{{ maxDate }}"
+                               datepicker-options="dateOptions"
+                               ng-required="true" show-button-bar="false"
+                               placeholder="Pickup Date"/>
+                    <span class="input-group-btn">
+                        <button ng-disabled="!order.editable()" type="button" class="btn btn-default"
+                                ng-click="open($event)"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error' : (orderdtlform.pickuppoint.$dirty && orderdtlform.pickuppoint.$invalid)
+                        || (orderdtlform.pickuppoint.$invalid && orderdtlform.submitted)}">
+                    <select ng-model="order.orderDetails.pickupLocation"
+                            ng-disabled="!order.editable()" class="form-control"
+                            ng-class="{'has-error' : orderdtlform.pickuppoint.$invalid}" name="pickuppoint"
+                            ng-options="p for p in {{ pickupPoints }}" required>
+                        <option value="">-- Preferred Pickup Point --</option>
+                    </select>
+
+                    <div ng-show="(orderdtlform.pickuppoint.$dirty && orderdtlform.pickuppoint.$invalid)
+                        || (orderdtlform.pickuppoint.$invalid && orderdtlform.submitted)"
+                         class="text-danger">
+                        <small ng-show="orderdtlform.pickuppoint.$error.required">
+                            Pickup point is required.
+                        </small>
+                    </div>
+                </div>
+
+                <h4>Instructions</h4>
+
+                <div class="form-group">
+                <textarea ng-model="order.orderDetails.instructions" class="form-control"
+                          ng-disabled="!order.editable()" id="inputMessage" rows="4"
+                          placeholder="Do you have any special requests or instructions regarding your order? Like frosting colors, if applicable."></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xs-12">
+                <h4>Your Contact Details</h4>
+
+                <div class="form-group"
+                     ng-class="{'has-error' : (orderdtlform.contactname.$dirty && orderdtlform.contactname.$invalid)
+                        || (orderdtlform.contactname.$invalid && orderdtlform.submitted)}">
+                    <div ng-if="loggedIn()">
+                        Display username and first name.
+                    </div>
+                    <!--<div ng-if="!loggedIn()">-->
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="contactname" placeholder="Name"
+                               ng-disabled="!order.editable()" ng-model="order.orderDetails.contactName"
+                               ng-minlength="5" required>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    </div>
+                    <div ng-show="(orderdtlform.contactname.$dirty && orderdtlform.contactname.$invalid)
+                            || (orderdtlform.contactname.$invalid && orderdtlform.submitted)"
+                         class="text-danger">
+                        <small ng-show="orderdtlform.contactname.$error.required">
+                            Your name is required.
+                        </small>
+                        <small ng-show="orderdtlform.contactname.$error.minlength">
+                            Your name is required to be at least 5 characters.
+                        </small>
+                    </div>
+                    <!--</div>-->
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : (orderdtlform.contactemail.$dirty && orderdtlform.contactemail.$invalid)
+                        || (orderdtlform.contactemail.$invalid && orderdtlform.submitted)}">
+                    <div class="input-group">
+                        <input type="email" class="form-control" name="contactemail" placeholder="Email address"
+                               ng-disabled="!order.editable()"
+                               ng-model="order.orderDetails.contactEmail" ng-minlength="5" required>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    </div>
+                    <div ng-show="(orderdtlform.contactemail.$dirty && orderdtlform.contactemail.$invalid)
+                        || (orderdtlform.contactemail.$invalid && orderdtlform.submitted)"
+                         class="text-danger">
+                        <small ng-show="orderdtlform.contactemail.$error.required">
+                            Your email is required.
+                        </small>
+                        <small ng-show="orderdtlform.contactemail.$error.minlength">
+                            Your email is required to be at least 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : (orderdtlform.contactphone.$dirty && orderdtlform.contactphone.$invalid)
+                        || (orderdtlform.contactphone.$invalid && orderdtlform.submitted)}">
+                    <div class="input-group">
+                        <input ng-model="order.orderDetails.contactPhone" ng-pattern="/\b\d{3}[-.]?\d{3}[-.]?\
+                              d{4}\b/" type="text"
+                               ng-disabled="!order.editable()" class="form-control"
+                               name="contactphone" placeholder="Contact number" required>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                    </div>
+                    <div ng-show="(orderdtlform.contactphone.$dirty && orderdtlform.contactphone.$invalid)
+                        || (orderdtlform.contactphone.$invalid && orderdtlform.submitted)"
+                         class="text-danger">
+                        <small>
+                            Your phone number is required.
+                        </small>
+                    </div>
+                </div>
+                <!--<hr>-->
+                <div class="bg-warning">
+                    <p>Please note that we need to confirm your order via
+                        email/phone. All payments will be made upon order pickup.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xs-12">
+                <h4>Update Your Order</h4>
+
+                <div class="alert text-center" role="alert"
+                     ng-class="{'alert-success' : (order.status() == 'NEW' || order.status() == 'INPROCESS'),
+                        'alert-info' : order.status()== 'COMPLETED', 'alert-danger' : order.status() == 'CANCELLED'}">
+                    <p class="lead">Status: <strong>{{ order.status() }}</strong></p>
+
+                    <div ng-show="!order.editable()">
+                        Please note that COMPLETED and CANCELLED orders cannot be updated. Orders with pickup dates that
+                        are less than 2 days to go cannot be updated as well.
+                    </div>
+                </div>
+
+                <div class="panel panel-default submit-panel">
+                    <button class="btn btn-warning btn-lg btn-block" type="submit"
+                            ng-disabled="!order.editable()" ng-click="updateOrder(order.orderDetails)">
+                        UPDATE
+                    </button>
+                    <button class="btn btn-danger btn-lg btn-block" type="submit"
+                            ng-disabled="!order.editable()" ng-click="cancelOrder()"
+                            tooltip="This action cannot be undone." tooltip-placement="bottom">
+                        CANCEL
+                    </button>
+                </div>
+
+            </div>
+        </div>
     </form>
 
 </div>

@@ -34,11 +34,4 @@ splash.controller('SplashController', function ($scope) {
 
 });
 
-//splash.run(function($rootScope, $location, $anchorScroll, $routeParams) {
-//    $rootScope.$on('$viewContentLoaded', function(newRoute, oldRoute) {
-//        $location.hash($routeParams.scrollTo);
-//        $anchorScroll();
-//    });
-//})
-
 

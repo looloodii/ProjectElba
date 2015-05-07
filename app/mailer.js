@@ -28,19 +28,17 @@ var send = function(mailOptions) {
         if(error){
             console.log(error);
             throw error;
-        } else {
-            console.log('Message sent: ' + info.response);
         }
     });
 }
 
-var buildOrderDetailsOptions = function(subject, orderDetails) {
+var buildOrderDetailsOptions = function(subject, orderDetails, template) {
     return {
         from: shopElbaEmail,
         to: orderDetails.contactEmail,
         bcc: elbaEmail,
         subject: subject,
-        template: 'orderdetails',
+        template: template,
         context: {
             orderid : orderDetails._id,
             items : orderDetails.itemList,
@@ -49,7 +47,24 @@ var buildOrderDetailsOptions = function(subject, orderDetails) {
             pickuplocation : orderDetails.pickupLocation,
             totalprice : orderDetails.totalPrice,
             contactnumber : orderDetails.contactPhone,
-            instructions: orderDetails.instructions
+            instructions: orderDetails.instructions,
+            status: orderDetails.status
+        }
+    };
+}
+
+var buildInquiryOptions = function(subject, inquiry, template) {
+    return {
+        from: shopElbaEmail,
+        to: inquiry.email,
+        bcc: elbaEmail,
+        subject: subject,
+        template: template,
+        context: {
+            name: inquiry.name,
+            email: inquiry.email,
+            type: inquiry.inquiryType,
+            message: inquiry.message
         }
     };
 }
@@ -58,16 +73,59 @@ module.exports = {
 
     mailOrderDetails: function(orderDetails) {
         var subject = "Your Shop Elba Diaries Order " + orderDetails._id,
-            mailOptions = buildOrderDetailsOptions(subject, orderDetails);
+            mailOptions = buildOrderDetailsOptions(subject, orderDetails, 'orderdetails');
 
         send(mailOptions, function(err) {
             if (err) {
                 console.log("Unable to send orderDetails email: " + err);
+                return err;
             }
         });
     },
 
-    mailInquiry: function(inquiryDetails) {
+    mailOrderUpdates: function(orderDetails) {
+        var subject = "Your Updated Shop Elba Diaries Order " + orderDetails._id,
+            mailOptions = buildOrderDetailsOptions(subject, orderDetails, 'orderupdated');
 
+        send(mailOptions, function(err) {
+            if (err) {
+                console.log("Unable to send orderDetails email: " + err);
+                return err;
+            }
+        });
+    },
+
+    mailOrderCancel: function(orderDetails) {
+        var subject = "Cancelled: Shop Elba Diaries Order " + orderDetails._id,
+            mailOptions = buildOrderDetailsOptions(subject, orderDetails, 'ordercancelled');
+
+        send(mailOptions, function(err) {
+            if (err) {
+                console.log("Unable to send orderDetails email: " + err);
+                return err;
+            }
+        });
+    },
+
+    mailInquiry: function(inquiry) {
+        var senderMailSubject = "Shop Elba Diaries - We got your message!";
+        var senderMailOptions = buildInquiryOptions(senderMailSubject, inquiry, 'inquiry');
+
+        //var elbaSubject = "New Inquiry from " + inquiry.name;
+        //var elbaMailOptions = buildInquiryOptions(elbaSubject, inquiry, 'inquiry');
+
+        send(senderMailOptions, function(err) {
+            if (err) {
+                console.log("Unable to send inquiry email: " + err);
+                return err;
+            }
+        });
+
+        //send(elbaMailOptions, function(err) {
+        //    if (err) {
+        //        console.log("Unable to send inquiry email: " + err);
+        //        return err;
+        //    }
+        //});
     }
 };

@@ -45,6 +45,7 @@
                 </div>
                 <div class="row">
                     <br>
+
                     <div class="col-md-2">
                         <i class="fa fa-envelope-o"></i>
                     </div>
@@ -56,48 +57,93 @@
         </div>
 
         <div class="col-md-9 col-xs-9">
-            <form class="form-horizontal">
-                <div class="form-group">
+
+            <form class="form-horizontal" name="contactform" ng-submit="sendInquiry()">
+                <div class="alert text-center alert-success col-sm-10 col-sm-offset-2" role="alert" ng-show="mailMsg">
+                    <p>{{ mailMsg }}</p>
+                </div>
+
+                <div class="form-group"
+                     ng-class="{'has-error' : contactform.name.$dirty && contactform.name.$invalid && !submitted}">
                     <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName"
-                               placeholder="Hi! What's your name?">
+                        <input ng-model="contactForm.name" name="name" type="text" class="form-control" id="inputName"
+                               placeholder="Hi! What's your name?" ng-minlength="5" required>
+
+                        <div ng-show="(contactform.name.$dirty && contactform.name.$invalid && !submitted)"
+                             class="text-danger">
+                            <small ng-show="contactform.name.$error.required">
+                                Your name is required.
+                            </small>
+                            <small ng-show="contactform.name.$error.minlength">
+                                Your name is required to be at least 5 characters.
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group"
+                     ng-class="{'has-error' : contactform.email.$dirty && contactform.email.$invalid && !submitted}">
                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Where can we reach you?">
+                        <input ng-model="contactForm.email" name="email" type="email" class="form-control"
+                               id="inputEmail" placeholder="Where can we reach you?" required>
+
+                        <div ng-show="(contactform.email.$dirty && contactform.email.$invalid && !submitted)"
+                             class="text-danger">
+                            <small ng-show="contactform.email.$error.required">
+                                Your email is required.
+                            </small>
+                            <small ng-show="contactform.email.$error.minlength">
+                                Your email is required to be at least 5 characters.
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group"
+                     ng-class="{'has-error' : contactform.inquiryType.$dirty && contactform.inquiryType.$invalid && !submitted}">
                     <label class="col-sm-2 control-label">Inquiry</label>
 
                     <div class="col-sm-10">
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Product Inquiry" checked> Product Inquiry
+                            <input type="radio" ng-model="contactForm.inquiryType" name="inquiryType" id="inlineRadio1"
+                                   value="Custom Order" ng-checked="true" required> Custom Order
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Custom Order"> Custom Order
+                            <input type="radio" ng-model="contactForm.inquiryType" name="inquiryType" id="inlineRadio2"
+                                   value="Product Inquiry" required> Product Inquiry
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Something Else"> Something Else
+                            <input type="radio" ng-model="contactForm.inquiryType" name="inquiryType" id="inlineRadio3"
+                                   value="Something Else" required> Something Else
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group"
+                     ng-class="{'has-error' : contactform.message.$dirty && contactform.message.$invalid && !submitted}">
                     <label for="inputMessage" class="col-sm-2 control-label">Message</label>
 
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="inputMessage" rows="5"
-                                  placeholder="Ok then! Write on, speak your mind and we'll get back to you (as needed)."></textarea>
+                        <textarea ng-model="contactForm.message" name="message" class="form-control" id="inputMessage"
+                                  rows="5" ng-minlength="5"
+                                  placeholder="Ok then! Write on, speak your mind and we'll get back to you (as needed)."
+                                  required></textarea>
+
+                        <div ng-show="(contactform.message.$dirty && contactform.message.$invalid && !submitted)"
+                             class="text-danger">
+                            <small ng-show="contactform.message.$error.required">
+                                Your message is required.
+                            </small>
+                            <small ng-show="contactform.message.$error.minlength">
+                                Your message is required to be at least 5 characters.
+                            </small>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Send</button>
+                        <button type="submit" class="btn btn-lg btn-want-some">SEND</button>
                     </div>
                 </div>
             </form>

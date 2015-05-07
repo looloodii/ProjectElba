@@ -4,15 +4,20 @@
 
 <p>Hi <span style="text-transform: capitalize"><strong>{{ contactname }}</strong></span>!</p>
 
-<p>Thank you for ordering from The Elba Diaries. Your order confirmation number is <strong>{{ orderid }}</strong>.</p>
+<p>Your order with confirmation number <strong>{{ orderid }}</strong> has been cancelled. If you were not the one who
+    cancelled this order, please notify us immediately.</p>
 
-<p>At any time, you can go online to <a href="http://shop.theelbadiaries.com">shop.theelbadiaries.com</a> to review your
-    order status or retrieve the order tracking number by clicking on the My Account link located at the top of every
-    page.</p>
+<p>We are so sorry you cancelled your order. Let us know if there is anything we can do to improve your shopping
+    experience. Your feedback is highly appreciated.</p>
 
-<p>Your order reads as follows: </p>
+<p>Here is a copy of your order for your records: </p>
 
 <table width="100%">
+    <tr>
+        <td colspan="4" align="center" bgcolor="#f2dede">
+            <h4>CANCELLED</h4>
+        </td>
+    </tr>
     <tr>
         <td colspan="4" align="center" bgcolor="#F4EFEB">
             <h2>Order <strong>{{ orderid }}</strong></h2>
@@ -88,7 +93,7 @@
     </tr>
 </table>
 
-<p>We will get in touch with you shortly to finalize the transaction.</p>
+<p>Visit us at <a href="http://shop.theelbadiaries.com">shop.theelbadiaries.com</a> again soon.</p>
 
 <p>Sincerely,</p>
 <p> Chastine<br/>Head Baker at The Elba Diaries</p>
