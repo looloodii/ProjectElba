@@ -3,33 +3,45 @@ var Order = require('./models/order');
 var User = require('./models/user');
 var mailer = require('./mailer');
 
-module.exports = function(app, passport) {
+module.exports = function (app, passport) {
 
     //login
-    app.get('/login', function(req, res) {
+    app.get('/login', function (req, res) {
         res.redirect('/signin');
     });
-    app.post('/login', function(req, res, next) {
-        passport.authenticate('local-login', function(err, user, info) {
-            if (err) { return next(err); }
-            if (!user) { return res.redirect('/login'); }
-            req.logIn(user, function(err) {
-                if (err) { return next(err); }
+    app.post('/login', function (req, res, next) {
+        passport.authenticate('local-login', function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.redirect('/login');
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
                 return res.redirect('/user/' + user.local.username);
             });
         })(req, res, next);
     });
 
-    app.get('/signup', function(req, res) {
+    app.get('/signup', function (req, res) {
         res.redirect('/register');
     });
 
-    app.post('/signup', function(req, res, next) {
-        passport.authenticate('local-signup', function(err, user, info) {
-            if (err) { return next(err); }
-            if (!user) { return res.redirect('/signup'); }
-            req.logIn(user, function(err) {
-                if (err) { return next(err); }
+    app.post('/signup', function (req, res, next) {
+        passport.authenticate('local-signup', function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.redirect('/signup');
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
                 return res.redirect('/user/' + user.local.username);
             });
         })(req, res, next);
@@ -37,9 +49,9 @@ module.exports = function(app, passport) {
 
     var sess;
 
-    app.get('/logout', function(req, res) {
+    app.get('/logout', function (req, res) {
         req.session.destroy(function (err) {
-            res.redirect('/login'); //Inside a callback… bulletproof!
+            res.redirect('/login'); //Inside a callbackï¿½ bulletproof!
         });
     });
 
@@ -54,12 +66,11 @@ module.exports = function(app, passport) {
     };
 
 
-
     // CATALOGUE
 
     // GET api/catalogue/:category
-    app.get('/api/catalogue/:category', function(req, res) {
-        Product.find({ 'category': req.params.category }, function(err, products) {
+    app.get('/api/catalogue/:category', function (req, res) {
+        Product.find({'category': req.params.category}, function (err, products) {
             if (err)
                 res.send(err);
 
@@ -67,11 +78,13 @@ module.exports = function(app, passport) {
         });
     });
 
-    // CART/ORDER
+    /*****
+     ***** CART/ORDER DETAILS
+     *****/
 
-    // GET by orderId
-    app.get('/api/order/:id', function(req, res) {
-        Order.find({ '_id': req.params.id }, function(err, order) {
+        // GET by orderId
+    app.get('/api/order/:id', function (req, res) {
+        Order.find({'_id': req.params.id}, function (err, order) {
             if (err)
                 res.send(err);
 
@@ -79,39 +92,100 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.post('/api/order', function(req, res) {
+    app.post('/api/order', function (req, res) {
         var newOrder = new Order(req.body);
-        //console.log(newOrder);
 
-        // Save order in DB
-        newOrder.save(function(err) {
+        newOrder.save(function (err) {
             var response = {};
             if (err) {
-                console.log('Order error: ' + err);
-                response = { error : true, errMsg: err };
+                console.log('Order save error: ' + err);
+                response = {error: true, errMsg: err};
             } else {
-                console.log('Order saved successfully!');
-                response = { orderId : newOrder._id };
+                console.log('Order created successfully! ' + newOrder._id);
+                response = {orderId: newOrder._id, mailMsg: ''};
 
                 // Send email to customer
-                mailer.mailOrderDetails(newOrder);
+                mailer.mailOrderDetails(newOrder, function (err) {
+                    if (err) {
+                        response.mailMsg = 'We could not send you an email with your order details at this time. ' +
+                        'Please save the order confirmation number for your records.';
+                    } else {
+                        response.mailMsg = 'Details have been sent to the email you provided.';
+                    }
+                });
             }
 
             res.json(response);
         });
     });
 
+    app.put('/api/order', function (req, res) {
+        var order = req.body;
+        order.updated = new Date();
+
+        var response = {};
+        Order.findByIdAndUpdate(
+            req.body._id,
+            {$set: req.body},
+            {new: true},
+            function (err, order) {
+                if (err) {
+                    console.log('Order update error: ' + err.toJson);
+                    response = {error: true, errMsg: err};
+                } else {
+                    response = order;
+
+                    // Send email to customer
+                    mailer.mailOrderUpdates(order, function (err) {
+                        if (err) {
+                            response.mailMsg = 'We could not send you an email with your order details at this time. ' +
+                            'Please save the order confirmation number for your records.';
+                        } else {
+                            response.mailMsg = 'Updated order details have been sent to the email you provided.';
+                        }
+                    });
+                }
+                res.json(response);
+            });
+    });
+
+    app.delete('/api/order/:id', function (req, res) {
+        Order.findByIdAndUpdate(
+            {'_id': req.params.id},
+            {$set: {status: 'CANCELLED', updated: new Date()}},
+            {new: true},
+            function (err, order) {
+                if (err) {
+                    console.log('Order cancel error: ' + err);
+                    response = {error: true, errMsg: err};
+                } else {
+                    response = order;
+
+                    // Send email to customer
+                    mailer.mailOrderCancel(order, function (err) {
+                        if (err) {
+                            response.mailMsg = 'We could not send you an email with your order details at this time. ' +
+                            'Please save the order confirmation number for your records.';
+                        } else {
+                            response.mailMsg = 'Details have been sent to the email you provided.';
+                        }
+                    });
+                }
+                res.json(response);
+            });
+    });
+
     // USER
 
     // POST create user
-    app.post('/api/user', function(req, res) {
+    app.post('/api/user', function (req, res) {
 
         var newUser = new User(req.body);
 
-        newUser.save(function(err) {
-            if (err){
+        newUser.save(function (err) {
+            if (err) {
                 throw err;
-            }else{
+            } else {
                 console.log('User saved successfully!');
             }
         });
@@ -120,42 +194,42 @@ module.exports = function(app, passport) {
     });
 
     // GET user by username
-    app.post('/api/user/:username', isLoggedIn, function(req, res) {
-        User.findOne({ 'local.username': req.params.username }, function(err, user) {
+    app.post('/api/user/:username', isLoggedIn, function (req, res) {
+        User.findOne({'local.username': req.params.username}, function (err, user) {
             if (err)
                 res.send(err);
             res.json(user);
         });
     });
-    app.put('/api/user', function(req, res) {
+    app.put('/api/user', function (req, res) {
         var updatedUser = new User(req.body);
-        var query = {'local.username':updatedUser.local.username};
-        User.update(query, req.body, {}, function(err,user){
-            if(err){
+        var query = {'local.username': updatedUser.local.username};
+        User.update(query, req.body, {}, function (err, user) {
+            if (err) {
                 throw err;
             }
             return res.send("Succesfully saved!");
         });
     });
 
-    app.post('/api/verifyuser', function(req, res) {
+    app.post('/api/verifyuser', function (req, res) {
         sess = req.session;
         sess.user = req.user;
-        if(sess.user != undefined && sess.user != null){
+        if (sess.user != undefined && sess.user != null) {
             res.json(sess.user);
-        }else{
+        } else {
             res.json(null);
         }
 
     });
 
-    app.post('/api/login', function(req, res) {
+    app.post('/api/login', function (req, res) {
         console.log("login");
     });
 
     // frontend routes =========================================================
     // route to handle all angular requests
-    app.get('*', function(req, res) {
+    app.get('*', function (req, res) {
         res.sendfile('./public/index.html'); // load our public/index.html file
     });
 

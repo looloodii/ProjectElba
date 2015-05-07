@@ -407,3 +407,10 @@ body {
     /*height: 80px;*/
     /*font-size: 20px;*/
 /*}*/
+
+.ngCart.cart span[ng-click] {
+    cursor: pointer;
+}
+.ngCart.cart .glyphicon.disabled {
+    color:#aaa;
+}

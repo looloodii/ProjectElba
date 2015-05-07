@@ -11,6 +11,7 @@ var OrderSchema = new mongoose.Schema({
     created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },
     status: String,
+    userName: String,
     contactName: String,
     contactPhone: String,
     contactEmail: String,
@@ -21,6 +22,6 @@ var OrderSchema = new mongoose.Schema({
     pickupLocation: String
 });
 
-//OrderSchema.path('orderId').index({ unique:true });
+OrderSchema.path('userName').index();
 
 module.exports = mongoose.model('Order', OrderSchema);

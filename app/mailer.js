@@ -28,19 +28,17 @@ var send = function(mailOptions) {
         if(error){
             console.log(error);
             throw error;
-        } else {
-            console.log('Message sent: ' + info.response);
         }
     });
 }
 
-var buildOrderDetailsOptions = function(subject, orderDetails) {
+var buildOrderDetailsOptions = function(subject, orderDetails, template) {
     return {
         from: shopElbaEmail,
         to: orderDetails.contactEmail,
         bcc: elbaEmail,
         subject: subject,
-        template: 'orderdetails',
+        template: template,
         context: {
             orderid : orderDetails._id,
             items : orderDetails.itemList,
@@ -49,7 +47,8 @@ var buildOrderDetailsOptions = function(subject, orderDetails) {
             pickuplocation : orderDetails.pickupLocation,
             totalprice : orderDetails.totalPrice,
             contactnumber : orderDetails.contactPhone,
-            instructions: orderDetails.instructions
+            instructions: orderDetails.instructions,
+            status: orderDetails.status
         }
     };
 }
@@ -58,11 +57,36 @@ module.exports = {
 
     mailOrderDetails: function(orderDetails) {
         var subject = "Your Shop Elba Diaries Order " + orderDetails._id,
-            mailOptions = buildOrderDetailsOptions(subject, orderDetails);
+            mailOptions = buildOrderDetailsOptions(subject, orderDetails, 'orderdetails');
 
         send(mailOptions, function(err) {
             if (err) {
                 console.log("Unable to send orderDetails email: " + err);
+                return err;
+            }
+        });
+    },
+
+    mailOrderUpdates: function(orderDetails) {
+        var subject = "Your Updated Shop Elba Diaries Order " + orderDetails._id,
+            mailOptions = buildOrderDetailsOptions(subject, orderDetails, 'orderupdated');
+
+        send(mailOptions, function(err) {
+            if (err) {
+                console.log("Unable to send orderDetails email: " + err);
+                return err;
+            }
+        });
+    },
+
+    mailOrderCancel: function(orderDetails) {
+        var subject = "Cancelled: Shop Elba Diaries Order " + orderDetails._id,
+            mailOptions = buildOrderDetailsOptions(subject, orderDetails, 'ordercancelled');
+
+        send(mailOptions, function(err) {
+            if (err) {
+                console.log("Unable to send orderDetails email: " + err);
+                return err;
             }
         });
     },
