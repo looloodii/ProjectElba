@@ -33,6 +33,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'OrderController'
         })
 
+        .when('/orders/history', {
+            templateUrl: 'views/order/history.html',
+            controller: 'OrderController'
+        })
+
         .when('/orders/:orderId', {
             templateUrl: 'views/order/orders.html',
             controller: 'OrderController'
@@ -57,14 +62,17 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/account/profile.html',
             controller: 'UserController'
         })
+
         .when('/user/:username', {
             templateUrl: 'views/account/profile.html',
             controller: 'UserController'
         })
+
         .when('/profile', {
             templateUrl: 'views/account/profile.html',
             controller: 'UserController'
         })
+
         .when('/user/:username', {
             templateUrl: 'views/account/profile.html',
             controller: 'UserController'

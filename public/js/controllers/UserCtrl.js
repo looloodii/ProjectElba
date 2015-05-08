@@ -1,4 +1,4 @@
-angular.module('UserCtrl', []).controller('UserController', function($scope, User, $route, $location) {
+angular.module('UserCtrl', []).controller('UserController', function($window, $scope, User, $route, $location) {
 
     $scope.tagline = 'Sign Up Now!';
 
@@ -11,6 +11,7 @@ angular.module('UserCtrl', []).controller('UserController', function($scope, Use
         User.verify(obj).success(function (data) {
             if(data!=null){
                 $scope.user = data;
+                $window.localStorage['user'] = angular.toJson(data);
             }
             else{
                 $location.path('/signin');

@@ -50,6 +50,7 @@ module.exports = function (app, passport) {
     var sess;
 
     app.get('/logout', function (req, res) {
+        //$window.localStorage.removeItem('user');
         req.session.destroy(function (err) {
             res.redirect('/login'); //Inside a callback� bulletproof!
         });
@@ -82,13 +83,23 @@ module.exports = function (app, passport) {
      ***** CART/ORDER DETAILS
      *****/
 
-        // GET by orderId
+    // GET by orderId
     app.get('/api/order/:id', function (req, res) {
         Order.find({'_id': req.params.id}, function (err, order) {
             if (err)
                 res.send(err);
 
             res.json(order);
+        });
+    });
+
+    //GET history
+    app.get('/api/order/history/:username', function (req, res) {
+        Order.find({'userName': req.params.username}, function (err, orders) {
+            if (err)
+                res.send(err);
+
+            res.json(orders);
         });
     });
 

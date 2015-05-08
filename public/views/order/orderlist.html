@@ -1,0 +1,86 @@
+<div ng-show="!history">
+    <div class="alert text-center alert-warning" role="alert">
+        <p>You have no orders yet but <a ng-href="/catalogue" href="#"><strong>we can fix that</strong></a>! </p>
+    </div>
+</div>
+
+<div class="history-panel">
+    <div class="row history-panel-header">
+        <!-- Order by Status then Pickup Date then Created -->
+        <div class="col-md-3">
+            <a href="#" ng-click="sortType = sortByPickupDate">
+                <h5><strong>Pickup Date </strong><span ng-show="sortType == sortByPickupDate"
+                                                       class="fa fa-caret-down"></span></h5>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="#" ng-click="sortType = sortByCreated">
+                <h5><strong>Created </strong><span ng-show="sortType == sortByCreated"
+                                                   class="fa fa-caret-down"></span></h5>
+            </a>
+        </div>
+        <div class="col-md-3"><h5><strong>Confirmation Number</strong></h5></div>
+        <div class="col-md-3">
+            <a href="#" ng-click="sortType = sortByStatus">
+                <h5><strong>Status </strong><span ng-show="sortType == sortByStatus"
+                                                  class="fa fa-caret-down"></span></h5>
+            </a>
+        </div>
+    </div>
+
+    <div ng-repeat="order in history | orderBy : sortType" class="row history-detail" ng-class="{'bg-success' : (order.status == 'NEW' || order.status == 'INPROCESS'),
+                'bg-info' : order.status == 'COMPLETED', 'bg-danger' : order.status == 'CANCELLED'}"
+         ng-click="isCollapsed = !isCollapsed">
+
+        <div class="col-md-3">{{ order.pickupDate | date:'dd-MMMM-yyyy' }}</div>
+        <div class="col-md-3">{{ order.created | date:'dd-MMMM-yyyy' }}</div>
+        <div class="col-md-3">{{ order._id }}</div>
+        <div class="col-md-3">{{ order.status }}</div>
+
+        <div class="col-md-12" collapse="isCollapsed">
+            <table class="table table-striped table-bordered ngCart cart history-detail-panel"> 
+                <thead> 
+                <tr> 
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                 
+                <tfoot> 
+                <tr> 
+                    <td></td>
+                    <td></td>
+                    <td><strong>Total:</strong></td>
+                    <td><strong>{{ order.totalPrice | currency }}</strong></td>
+                     
+                </tr>
+                </tfoot>
+                 
+                <tbody> 
+                <tr ng-repeat="item in order.itemList"> 
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity | number }}</td>
+                    <td>{{ item.price | currency}}</td>
+                    <td>{{ item.totalprice | currency }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <a ng-href="/orders/{{ order._id }}" href="#">
+                    <button class="btn btn-primary text-uppercase">View more details</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="text-center" ng-show="history.length > 10">
+    <pagination total-items="history.length" max-size="5" class="pagination-sm" ng-model="1"
+                boundary-links="true" rotate="false"></pagination>
+</div>
+
+</div>
+

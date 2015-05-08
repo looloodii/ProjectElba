@@ -90,9 +90,9 @@ cart.service('orderDtl', function ($filter) {
 
 });
 
-cart.service('orderBuilder', function ($filter) {
+cart.service('orderBuilder', function () {
 
-    this.buildItemList = function(ngCartItems) {
+    this.buildItemList = function (ngCartItems) {
         var itemList = [];
         angular.forEach(ngCartItems, function (item) {
             itemList.push({
@@ -105,7 +105,7 @@ cart.service('orderBuilder', function ($filter) {
         return itemList;
     };
 
-    this.buildNewOrder = function(orderform, ngCart) {
+    this.buildNewOrder = function (orderform, ngCart) {
         var newOrder = {
             'userName': orderform.username,
             'contactName': orderform.contactname,
@@ -123,7 +123,56 @@ cart.service('orderBuilder', function ($filter) {
     }
 });
 
-cart.controller('OrderController', function ($scope, $location, $routeParams, $filter, ngCart, orderDtl, orderBuilder, Order) {
+cart.service('user', ['$window', function ($window) {
+
+    var loggedIn = false;
+    var user = {};
+
+    this.init = function () {
+        if ($window.localStorage['user']) {
+            loggedIn = true;
+            user = angular.fromJson($window.localStorage['user']);
+            user.name = this.contactName();
+            return true;
+        }
+        return false;
+    };
+
+    this.loggedIn = function () {
+        return loggedIn;
+    };
+
+    this.userDetails = function () {
+        return user;
+    };
+
+    this.userName = function () {
+        if (loggedIn) {
+            return user.local.username;
+        }
+    };
+
+    this.contactName = function () {
+        if (loggedIn) {
+            return user.firstName + ' ' + user.lastName;
+        }
+    };
+
+    this.email = function () {
+        if (loggedIn) {
+            return user.email;
+        }
+    };
+
+    this.phone = function() {
+        if (loggedIn) {
+            return user.mobileNumber;
+        }
+    }
+
+}]);
+
+cart.controller('OrderController', function ($scope, $location, $routeParams, $filter, ngCart, orderDtl, orderBuilder, user, Order) {
 
     //Event Date Picker
     var getCurrentDate = function () {
@@ -152,6 +201,42 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
     $scope.dateFormat = 'dd-MMMM-yyyy';
     $scope.pickupPoints = ['Shadow Cove Apartments', 'Sunnyvale'];
     $scope.emptyOrder = {};
+
+    //Initialize User Details
+    function initializeUser() {
+        user.init();
+        if (user.loggedIn()) {
+            $scope.neworder = {};
+            $scope.neworder.username = user.userName();
+            $scope.neworder.contactname = user.contactName();
+            $scope.neworder.contactemail = user.email();
+            $scope.neworder.contactphone = user.phone();
+            getHistory();
+        }
+    }
+
+    initializeUser();
+
+    $scope.userLoggedIn = function () {
+        return user.loggedIn();
+    }
+
+    //Initialize user's order history
+    function getHistory() {
+        Order.getHistory(user.userName()).success(function (data) {
+            var orderList = data;
+            angular.forEach(orderList, function(order) {
+                console.log('order: ' + angular.toJson(order));
+            })
+
+            $scope.history = orderList;
+        });
+        $scope.sortByStatus = ['-status', 'pickupDate', 'created'];
+        $scope.sortByCreated = ['created', '-status', 'pickupDate'];
+        $scope.sortByPickupDate = ['pickupDate', '-status', 'created'];
+        $scope.sortType = $scope.sortByStatus;
+        $scope.isCollapsed = true;
+    }
 
     $scope.resetCart = function () {
         $scope.order = angular.copy($scope.emptyOrder);
