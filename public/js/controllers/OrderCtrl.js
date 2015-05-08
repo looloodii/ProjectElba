@@ -8,12 +8,17 @@ cart.service('orderDtl', function ($filter) {
         editable = false,
         id = '';
 
-    this.initOrder = function (order) {
+    this.initOrder = function (order, isAdmin) {
         id = order._id;
         items = order.itemList;
         status = order.status;
         pickupDate = $filter('date')(order.pickupDate, 'yyyy-MM-dd');
-        editable = this.canEdit();
+        if (isAdmin) {
+            editable = true;
+        } else {
+            editable = this.canEdit();
+        }
+
     };
 
     this.id = function () {
@@ -125,18 +130,19 @@ cart.service('orderBuilder', function () {
 
 cart.service('user', ['$window', function ($window) {
 
-    var loggedIn = false;
-    var user = {};
+    var loggedIn;
+    var user;
 
     this.init = function () {
-        console.log($window.localStorage.getItem('user'));
+        //console.log($window.localStorage.getItem('user'));
         if ($window.localStorage.getItem('user') != null) {
             loggedIn = true;
             user = angular.fromJson($window.localStorage['user']);
             user.name = this.contactName();
-            return true;
+        } else {
+            loggedIn = false;
+            user = {};
         }
-        return false;
     };
 
     this.loggedIn = function () {
@@ -172,6 +178,7 @@ cart.service('user', ['$window', function ($window) {
     }
 
     this.admin = function() {
+        //console.log("user role: " + user.role);
         if (loggedIn) {
             return user.role == 'ADMIN';
         }
@@ -208,7 +215,10 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
 
     $scope.dateFormat = 'dd-MMMM-yyyy';
     $scope.pickupPoints = ['Shadow Cove Apartments', 'Sunnyvale'];
+    $scope.statusOpt = ['NEW', 'INPROCESS', 'COMPLETED', 'CANCELLED'];
     $scope.emptyOrder = {};
+    $scope.pageNum = 1;
+    $scope.totalOrders = 0;
 
     //Initialize User Details
     function initializeUser() {
@@ -245,6 +255,7 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
     function getUserHistory() {
         Order.getHistory(user.userName()).success(function (data) {
             $scope.history = data;
+            $scope.totalOrders = data.length;
         });
         $scope.sortByStatus = ['-status', 'pickupDate', 'created'];
         $scope.sortByCreated = ['created', '-status', 'pickupDate'];
@@ -256,6 +267,7 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
     function getAllOrders() {
         Order.getAll().success(function (data) {
             $scope.history = data;
+            $scope.totalOrders = data.length;
         });
         $scope.sortByStatus = ['-status', 'pickupDate', 'created'];
         $scope.sortByCreated = ['created', '-status', 'pickupDate'];
@@ -326,7 +338,7 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
     }
 
     function updateOrderDetails(orderData) {
-        orderDtl.initOrder(orderData);
+        orderDtl.initOrder(orderData, user.admin());
         $scope.order = orderDtl;
         $scope.order.orderDetails = orderData;
     }

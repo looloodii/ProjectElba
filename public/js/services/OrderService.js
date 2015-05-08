@@ -8,7 +8,7 @@ angular.module('OrderService', []).factory('Order', ['$http', function($http) {
 
         //get all orders
         getAll : function() {
-            return $http.get('/api/orders/');
+            return $http.get('/api/orders');
         },
 
         //get order history for user

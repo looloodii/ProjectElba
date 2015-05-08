@@ -186,7 +186,7 @@
         <div class="col-md-4 col-xs-12">
             <h4>Update Your Order</h4>
 
-            <div class="alert text-center" role="alert"
+            <div ng-if="!userAdmin()" class="alert text-center" role="alert"
                  ng-class="{'alert-success' : (order.status() == 'NEW' || order.status() == 'INPROCESS'),
                         'alert-info' : order.status()== 'COMPLETED', 'alert-danger' : order.status() == 'CANCELLED'}">
                 <p class="lead">Status: <strong>{{ order.status() }}</strong></p>
@@ -197,7 +197,19 @@
                 </div>
             </div>
 
-            <div class="panel panel-default submit-panel">
+            <div ng-if="userAdmin()" class="alert text-center" role="alert"
+                 ng-class="{'alert-success' : (order.orderDetails.status == 'NEW' || order.orderDetails.status == 'INPROCESS'),
+                        'alert-info' : order.orderDetails.status== 'COMPLETED', 'alert-danger' : order.orderDetails.status == 'CANCELLED'}">
+                <div class="form-group">
+                    <label for="status" class="control-label"><h5>Change Status</h5></label>
+                    <select ng-model="order.orderDetails.status" style="width:70%"
+                            ng-disabled="!order.editable()" class="form-control center-block" name="status" id="status"
+                            ng-options="p for p in {{ statusOpt }}" required>
+                    </select>
+                </div>
+            </div>
+
+            <div ng-if="!userAdmin()" class="panel panel-default submit-panel">
                 <button class="btn btn-warning btn-lg btn-block" type="submit"
                         ng-disabled="!order.editable()" ng-click="updateOrder(order.orderDetails)">
                     UPDATE
@@ -208,6 +220,11 @@
                     CANCEL
                 </button>
             </div>
+
+            <button ng-if="userAdmin()" class="btn btn-warning btn-lg btn-block" type="submit"
+                    ng-disabled="!order.editable()" ng-click="updateOrder(order.orderDetails)">
+                UPDATE
+            </button>
 
         </div>
     </div>

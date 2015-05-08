@@ -13,7 +13,9 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
         User.verify(obj).success(function (data) {
             if(data!=null){
                 $scope.user = data;
-                $window.localStorage['user'] = angular.toJson(data);
+                console.log("In verify success");
+                $window.localStorage.setItem('user', angular.toJson(data));
+                console.log("localStorage: " + $window.localStorage.getItem('user'));
             }
             else{
                 $location.path('/signin');
@@ -37,6 +39,8 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
         User.logout()
             .success(function (data) {
                 console.log("success logging out -ctrl");
+                $window.localStorage.removeItem('user');
+                console.log("localStorage: " + $window.localStorage.getItem('user'));
                 $location.path('/signin');
             });
     };
@@ -49,7 +53,10 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
 
         User.login(userDetails)
             .success(function (data) {
+                console.log("In login success");
                 $scope.loggedIn() == true;
+                $window.localStorage.setItem('user', angular.toJson(data));
+                console.log("localStorage: " + $window.localStorage.getItem('user'));
             });
     };
 
