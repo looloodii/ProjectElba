@@ -24,7 +24,7 @@
                                    ng-model="username" ensure-unique="username"
                                    placeholder="Username" required ng-maxlength=16 ng-minlength=3>
 
-                            <div ng-show="signup_form.username.$dirty && signup_form.username.$invalid">
+                            <div ng-show="signup_form.username.$dirty && signup_form.username.$invalid" class="text-danger">
                                 <small ng-show="signup_form.username.$error.required">
                                     Your name is required.
                                 </small>
@@ -50,7 +50,7 @@
                                    ng-model="password"
                                    placeholder="Password" name="password" required>
 
-                            <div ng-show="signup_form.password.$dirty && signup_form.password.$invalid">
+                            <div ng-show="signup_form.password.$dirty && signup_form.password.$invalid" class="text-danger">
                                 <small ng-show="signup_form.username.$error.required">
                                     Your password is required.
                                 </small>
@@ -65,7 +65,7 @@
                                    ng-model="firstName"
                                    placeholder="First Name" required>
 
-                            <div ng-show="signup_form.firstName.$dirty && signup_form.firstName.$invalid">
+                            <div ng-show="signup_form.firstName.$dirty && signup_form.firstName.$invalid" class="text-danger">
                                 <small ng-show="signup_form.firstName.$error.required">
                                     Your first name is required.
                                 </small>
@@ -81,7 +81,7 @@
                                    ng-model="lastName"
                                    placeholder="Last Name" required>
 
-                            <div ng-show="signup_form.lastName.$dirty && signup_form.lastName.$invalid">
+                            <div ng-show="signup_form.lastName.$dirty && signup_form.lastName.$invalid" class="text-danger">
                                 <small ng-show="signup_form.lastName.$error.required">
                                     Your last name is required.
                                 </small>
@@ -96,7 +96,7 @@
                             <input type="email" class="form-control" id="inputEmail" name="email" ng-model="email"
                                    placeholder="Email" required>
 
-                            <div ng-show="signup_form.email.$dirty && signup_form.email.$invalid">
+                            <div ng-show="signup_form.email.$dirty && signup_form.email.$invalid" class="text-danger">
                                 <small ng-show="signup_form.email.$error.required">
                                     Your email is required.
                                 </small>
@@ -110,15 +110,16 @@
                         <label for="inputMobileNumber" class="col-sm-4 control-label">Mobile Number</label>
 
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="inputMobileNumber" name="mobileNumber"
+                            <input type="text" class="form-control" id="inputMobileNumber" name="mobileNumber"
                                    ng-model="mobileNumber"
-                                   placeholder="Mobile Number" required>
-
-                            <div ng-show="signup_form.mobileNumber.$dirty && signup_form.mobileNumber.$invalid">
+                                   placeholder="Mobile Number" required ng-pattern="/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/">
+                            <div ng-show="signup_form.mobileNumber.$dirty && signup_form.mobileNumber.$invalid" class="text-danger">
                                 <small ng-show="signup_form.mobileNumber.$error.required">
                                     Your mobile number is required.
                                 </small>
-
+                                <small ng-show="signup_form.mobileNumber.$error.pattern">
+                                    That is not a valid number. Please input a valid number.
+                                </small>
                             </div>
 
                         </div>
