@@ -1,9 +1,9 @@
-usermod = angular.module('UserCtrl', []);
+//usermod = angular.module('UserCtrl', []);
 
-usermod.controller('UserController', function($window, $scope, User, $route, $location) {
-/*
+//usermod.controller('UserController', function($window, $scope, User, $route, $location) {
+
 angular.module('UserCtrl', []).controller('UserController', function($scope, User, $route, $location) {
-*/
+
 
     $scope.tagline = 'Sign Up Now!';
 
@@ -84,7 +84,7 @@ angular.module('UserCtrl', []).controller('UserController', function($scope, Use
 
 });
 var checking;
-usermod.directive('ensureUnique', ['$http', '$timeout', function($http, $timeout) {
+angular.module('UserCtrl', []).directive('ensureUnique', ['$http', '$timeout', function($http, $timeout) {
     return {
         require: 'ngModel',
         link: function(scope, ele, attrs, c) {
