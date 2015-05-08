@@ -138,8 +138,9 @@
                         </button>
                     </div>
 
-                    <div class="col-sm-offset-10 col-sm-2"><span style="font-size: 18px;">{{updateMessage}}</span></div>
-
+                    <div class="col-sm-12 alert text-center alert-warning" style="padding: 5px;margin-top: 12px;" role="alert" ng-show="updateMessage">
+                        <p>{{updateMessage}}</p>
+                    </div>
                 </div>
 
             </form>
@@ -175,7 +176,6 @@
                            ng-model="user.local.username" value="{{user.local.username}}">
                     <div class="col-sm-12 alert text-center alert-warning" style="padding: 5px;margin-top: 12px;" role="alert" ng-show="passwordMessage">
                         <p>{{ passwordMessage }}</p>
-
                     </div>
 
                 </form>

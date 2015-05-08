@@ -109,6 +109,7 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
         };
         User.update(userDetails)
             .success(function (data) {
+                $scope.updateMessage = "Sucessfully updated!";
                 $window.localStorage.setItem('user', angular.toJson(data))
             });
     }
