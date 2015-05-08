@@ -61,9 +61,10 @@ module.exports = function (app, passport) {
     var sess;
 
     app.get('/logout', function (req, res) {
-        req.session.destroy(function (err) {
-            res.redirect('/login');
-        });
+        //$window.localStorage.removeItem('user');
+            req.session.destroy(function (err) {
+                res.redirect('/login');
+            });
     });
 
     function isLoggedIn(req, res, next) {
