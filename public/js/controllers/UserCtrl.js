@@ -1,6 +1,6 @@
 usermod = angular.module('UserCtrl', []);
 
-usermod.controller('UserController', function($scope, User, $route, $location) {
+usermod.controller('UserController', function($window, $scope, User, $route, $location) {
 /*
 angular.module('UserCtrl', []).controller('UserController', function($scope, User, $route, $location) {
 */
@@ -16,6 +16,7 @@ angular.module('UserCtrl', []).controller('UserController', function($scope, Use
         User.verify(obj).success(function (data) {
             if(data!=null){
                 $scope.user = data;
+                $window.localStorage['user'] = angular.toJson(data);
             }
             else{
                 $location.path('/signin');
