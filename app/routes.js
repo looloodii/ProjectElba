@@ -312,7 +312,7 @@ module.exports = function (app, passport) {
             if (err) {
                 throw err;
             }
-            return res.send("Succesfully saved!");
+            return res.json(user);
         });
     });
 
@@ -333,19 +333,19 @@ module.exports = function (app, passport) {
     });
 
     app.post('/api/login', function (req, res, next){
-        console.log("api/login");
         passport.authenticate('local-login', function (err, user, info) {
             if (err) {
                 return next(err);
             }
             if (!user) {
-                return res.redirect('/login');
+                console.log(info);
+                return res.send(info);
             }
             req.logIn(user, function (err) {
                 if (err) {
                     return next(err);
                 }
-                return res(user);
+                return res.json(user);
             });
         })(req, res, next);
     });

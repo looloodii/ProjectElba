@@ -75,17 +75,16 @@ module.exports = function(passport) {
             passReqToCallback : true
         },
         function(req, username, password, done) {
-            console.log(">>>>username:"+username);
-            console.log(">>>>password:"+password);
+
             User.findOne({ 'local.username' :  username }, function(err, user) {
                 if (err)
                     return done(err);
 
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    return done(null, false, 'Invalid credentials.');
 
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    return done(null, false, 'Invalid credentials.');
 
                 return done(null, user);
             });
