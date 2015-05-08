@@ -129,7 +129,8 @@ cart.service('user', ['$window', function ($window) {
     var user = {};
 
     this.init = function () {
-        if ($window.localStorage['user']) {
+        console.log($window.localStorage.getItem('user'));
+        if ($window.localStorage.getItem('user') != null) {
             loggedIn = true;
             user = angular.fromJson($window.localStorage['user']);
             user.name = this.contactName();
@@ -168,6 +169,13 @@ cart.service('user', ['$window', function ($window) {
         if (loggedIn) {
             return user.mobileNumber;
         }
+    }
+
+    this.admin = function() {
+        if (loggedIn) {
+            return user.role == 'ADMIN';
+        }
+        return false;
     }
 
 }]);
@@ -221,15 +229,33 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
         return user.loggedIn();
     }
 
+    $scope.userAdmin = function () {
+        return user.admin();
+    }
+
     //Initialize user's order history
     function getHistory() {
-        Order.getHistory(user.userName()).success(function (data) {
-            var orderList = data;
-            angular.forEach(orderList, function(order) {
-                console.log('order: ' + angular.toJson(order));
-            })
+        if (user.admin()) {
+            getAllOrders();
+        } else {
+            getUserHistory();
+        }
+    }
 
-            $scope.history = orderList;
+    function getUserHistory() {
+        Order.getHistory(user.userName()).success(function (data) {
+            $scope.history = data;
+        });
+        $scope.sortByStatus = ['-status', 'pickupDate', 'created'];
+        $scope.sortByCreated = ['created', '-status', 'pickupDate'];
+        $scope.sortByPickupDate = ['pickupDate', '-status', 'created'];
+        $scope.sortType = $scope.sortByStatus;
+        $scope.isCollapsed = true;
+    }
+
+    function getAllOrders() {
+        Order.getAll().success(function (data) {
+            $scope.history = data;
         });
         $scope.sortByStatus = ['-status', 'pickupDate', 'created'];
         $scope.sortByCreated = ['created', '-status', 'pickupDate'];
