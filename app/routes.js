@@ -10,7 +10,6 @@ module.exports = function (app, passport) {
         res.redirect('/signin');
     });
     app.post('/login', function (req, res, next) {
-        console.log(req);
         passport.authenticate('local-login', function (err, user, info) {
             if (err) {
                 return next(err);
@@ -333,26 +332,20 @@ module.exports = function (app, passport) {
         res.send("");
     });
 
-    app.post('/api/login', function (req, res, next) {
+    app.post('/api/login', function (req, res, next){
         console.log("api/login");
-        console.log(req);
         passport.authenticate('local-login', function (err, user, info) {
             if (err) {
-                console.log("0");
                 return next(err);
             }
             if (!user) {
-                console.log("1");
                 return res.redirect('/login');
             }
             req.logIn(user, function (err) {
                 if (err) {
-                    console.log("2");
                     return next(err);
                 }
-                console.log("3");
                 return res(user);
-                //return res.redirect('/user/' + user.local.username);
             });
         })(req, res, next);
     });

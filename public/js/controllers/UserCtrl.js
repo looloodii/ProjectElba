@@ -9,7 +9,14 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
     var loc = $location.path();
 
     if(loc == "/account"){
-        var obj = {};
+
+        if($window.localStorage.getItem('user')==null){
+            $location.path('/signin');
+        }else{
+            $scope.user = angular.fromJson($window.localStorage['user']);
+        }
+
+        /*var obj = {};
         User.verify(obj).success(function (data) {
             if(data!=null){
                 $scope.user = data;
@@ -22,7 +29,7 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
             }
         }).error(function (data) {
             console.log("error");
-        });
+        });*/
 
     }
 
@@ -31,6 +38,8 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
             $scope.user = data;
             if ($scope.user.local == undefined) {
                 $location.path('/signin');
+            }else{
+                $window.localStorage.setItem('user', angular.toJson(data));
             }
         });
     }
@@ -38,27 +47,26 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
     $scope.logout = function(){
         User.logout()
             .success(function (data) {
-                console.log("success logging out -ctrl");
                 $window.localStorage.removeItem('user');
-                console.log("localStorage: " + $window.localStorage.getItem('user'));
                 $location.path('/signin');
             });
     };
 
-    $scope.login = function(){
+
+    $scope.login = function (req, res, next){
+
         var userDetails = {
             'username' : $scope.login.username,
             'password' : $scope.login.password
         };
 
-        /*User.login(userDetails)*/
-        User.login($scope.login_form)
+        /*User.login(userDetails)
             .success(function (data) {
                 console.log("In login success");
                 $scope.loggedIn == true;
                 $window.localStorage.setItem('user', angular.toJson(data));
                 console.log("localStorage: " + $window.localStorage.getItem('user'));
-            });
+            });*/
     };
 
 
