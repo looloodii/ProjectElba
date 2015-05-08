@@ -447,3 +447,7 @@ body {
 .ngCart.cart .glyphicon.disabled {
     color:#aaa;
 }
+
+.account-header{
+    padding-bottom: 30px;
+}
