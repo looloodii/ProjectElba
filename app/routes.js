@@ -60,12 +60,12 @@ module.exports = function (app, passport) {
 
     var sess;
 
-    app.get('/logout', function (req, res) {
+    /*app.get('/logout', function (req, res) {
         //$window.localStorage.removeItem('user');
-            req.session.destroy(function (err) {
-                res.redirect('/login');
-            });
-    });
+        req.session.destroy(function (err) {
+            res.redirect('/login');
+        });
+    });*/
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -250,6 +250,11 @@ module.exports = function (app, passport) {
             res.json(null);
         }
 
+    });
+
+    app.get('/api/logout', function (req, res) {
+        req.logout();
+        res.send("");
     });
 
     app.post('/api/login', function (req, res) {
