@@ -15,7 +15,7 @@
         </div>
         <div class="col-md-2"><h5><strong>Contact Name</strong></h5></div>
         <div class="col-md-3"><h5><strong>Confirmation Number</strong></h5></div>
-        <div class="col-md-1"><h5><strong>Total Price</strong></h5></div>
+        <div class="col-md-1"><h5><strong><span class="glyphicon glyphicon-usd"></span></strong></h5></div>
         <div class="col-md-2">
             <a href="#" ng-click="sortType = sortByStatus">
                 <h5><strong>Status </strong><span ng-show="sortType == sortByStatus"
@@ -32,7 +32,7 @@
         <div class="col-md-2">{{ order.created | date:'dd-MMMM-yyyy' }}</div>
         <div class="col-md-2">{{ order.contactName }}</div>
         <div class="col-md-3">{{ order._id }}</div>
-        <div class="col-md-1">{{ order.totalPrice }}</div>
+        <div class="col-md-1">{{ order.totalPrice | currency }}</div>
         <div class="col-md-2">{{ order.status }}</div>
 
         <div class="col-md-12" collapse="isCollapsed">

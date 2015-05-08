@@ -36,6 +36,7 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
         User.logout()
             .success(function (data) {
                 console.log("success logging out -ctrl");
+                $window.localStorage.removeItem('user');
                 $location.path('/signin');
             });
     };

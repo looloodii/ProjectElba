@@ -8,12 +8,17 @@ cart.service('orderDtl', function ($filter) {
         editable = false,
         id = '';
 
-    this.initOrder = function (order) {
+    this.initOrder = function (order, isAdmin) {
         id = order._id;
         items = order.itemList;
         status = order.status;
         pickupDate = $filter('date')(order.pickupDate, 'yyyy-MM-dd');
-        editable = this.canEdit();
+        if (isAdmin) {
+            editable = true;
+        } else {
+            editable = this.canEdit();
+        }
+
     };
 
     this.id = function () {
@@ -209,6 +214,7 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
 
     $scope.dateFormat = 'dd-MMMM-yyyy';
     $scope.pickupPoints = ['Shadow Cove Apartments', 'Sunnyvale'];
+    $scope.statusOpt = ['NEW', 'INPROCESS', 'COMPLETED'];
     $scope.emptyOrder = {};
 
     //Initialize User Details
@@ -330,7 +336,7 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
     }
 
     function updateOrderDetails(orderData) {
-        orderDtl.initOrder(orderData);
+        orderDtl.initOrder(orderData, user.admin());
         $scope.order = orderDtl;
         $scope.order.orderDetails = orderData;
     }
