@@ -13,7 +13,6 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
         User.verify(obj).success(function (data) {
             if(data!=null){
                 $scope.user = data;
-                $window.localStorage['user'] = angular.toJson(data);
             }
             else{
                 $location.path('/signin');
@@ -41,6 +40,7 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
         User.login(userDetails)
             .success(function (data) {
                 $scope.loggedIn() == true;
+                $window.localStorage['user'] = angular.toJson(data);
             });
     };
 

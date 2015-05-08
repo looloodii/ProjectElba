@@ -86,6 +86,72 @@ module.exports = function (app, passport) {
         });
     });
 
+    // GET all products
+    app.get('/api/catalogue', function (req, res) {
+        Product.find({}, function (err, products) {
+            if (err)
+                res.send(err);
+
+            res.json(products);
+        });
+    });
+
+    app.post('/api/catalogue', function (req, res) {
+        var newProduct = new Product(req.body);
+
+        newProduct.save(function (err) {
+            var response = {};
+            if (err) {
+                console.log('Product save error: ' + err);
+                response = {error: true, errMsg: err};
+            } else {
+                console.log('Product created successfully! ' + newProduct._id);
+                response = {orderId: newProduct._id, mailMsg: ''};
+            }
+            res.json(response);
+        });
+    });
+
+    app.put('/api/catalogue', function (req, res) {
+        var product = req.body;
+        product.updated = new Date();
+
+        var response = {};
+        Product.findByIdAndUpdate(
+            req.body._id,
+            {$set: req.body},
+            {new: true},
+            function (err, order) {
+                if (err) {
+                    console.log('Product update error: ' + err.toJson);
+                    response = {error: true, errMsg: err};
+                } else {
+                    response = order;
+                }
+                res.json(response);
+            });
+    });
+
+    app.put('/api/catalogue/status/:id', function (req, res) {
+        var product = req.body;
+        product.updated = new Date();
+
+        var response = {};
+        Product.findByIdAndUpdate(
+            req.params.id,
+            {$set: { 'status' : req.body }},
+            {new: true},
+            function (err, order) {
+                if (err) {
+                    console.log('Product update error: ' + err.toJson);
+                    response = {error: true, errMsg: err};
+                } else {
+                    response = order;
+                }
+                res.json(response);
+            });
+    });
+
     /*****
      ***** CART/ORDER DETAILS
      *****/
@@ -96,6 +162,15 @@ module.exports = function (app, passport) {
             if (err)
                 res.send(err);
             res.json(order);
+        });
+    });
+
+    //GET ALL
+    app.get('/api/orders', function (req, res) {
+        Order.find({}, function (err, orders) {
+            if (err)
+                res.send(err);
+            res.json(orders);
         });
     });
 

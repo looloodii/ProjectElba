@@ -14,8 +14,8 @@
             </a>
         </div>
         <div class="col-md-2"><h5><strong>Contact Name</strong></h5></div>
-        <div class="col-md-2"><h5><strong>Confirmation Number</strong></h5></div>
-        <div class="col-md-2"><h5><strong>Total Price</strong></h5></div>
+        <div class="col-md-3"><h5><strong>Confirmation Number</strong></h5></div>
+        <div class="col-md-1"><h5><strong>Total Price</strong></h5></div>
         <div class="col-md-2">
             <a href="#" ng-click="sortType = sortByStatus">
                 <h5><strong>Status </strong><span ng-show="sortType == sortByStatus"
@@ -24,15 +24,15 @@
         </div>
     </div>
 
-    <div ng-repeat="order in history track by $index | orderBy : sortType" class="row history-detail" ng-class="{'bg-success' : (order.status == 'NEW' || order.status == 'INPROCESS'),
+    <div ng-repeat="order in history | orderBy : sortType" class="row history-detail" ng-class="{'bg-success' : (order.status == 'NEW' || order.status == 'INPROCESS'),
                 'bg-info' : order.status == 'COMPLETED', 'bg-danger' : order.status == 'CANCELLED'}"
          ng-click="isCollapsed = !isCollapsed">
 
         <div class="col-md-2">{{ order.pickupDate | date:'dd-MMMM-yyyy' }}</div>
         <div class="col-md-2">{{ order.created | date:'dd-MMMM-yyyy' }}</div>
         <div class="col-md-2">{{ order.contactName }}</div>
-        <div class="col-md-2">{{ order._id }}</div>
-        <div class="col-md-2">{{ order.totalPrice }}</div>
+        <div class="col-md-3">{{ order._id }}</div>
+        <div class="col-md-1">{{ order.totalPrice }}</div>
         <div class="col-md-2">{{ order.status }}</div>
 
         <div class="col-md-12" collapse="isCollapsed">
@@ -73,11 +73,6 @@
         </div>
 
     </div>
-</div>
-
-<div class="text-center" ng-show="history.length > 10">
-    <pagination total-items="history.length" max-size="5" class="pagination-sm" ng-model="1"
-                boundary-links="true" rotate="false"></pagination>
 </div>
 
 </div>

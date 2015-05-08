@@ -11,6 +11,11 @@
     <!-- ORDER DETAILS -->
     <div ng-if="!userAdmin()" ng-include="'views/order/orderlist.html'"></div>
     <div ng-if="userAdmin()" ng-include="'views/order/ordersadmin.html'"></div>
+
+    <!--<div class="text-center" ng-show="totalOrders > 10">-->
+        <!--<pagination total-items="totalOrders" max-size="5" class="pagination-sm" ng-model="pageNum"-->
+                    <!--boundary-links="true" rotate="false"></pagination>-->
+    <!--</div>-->
 </div>
 
 <!-- SEARCH ORDER -->

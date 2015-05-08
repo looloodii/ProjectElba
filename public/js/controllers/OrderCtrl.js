@@ -172,6 +172,7 @@ cart.service('user', ['$window', function ($window) {
     }
 
     this.admin = function() {
+        console.log("user role: " + user.role);
         if (loggedIn) {
             return user.role == 'ADMIN';
         }
@@ -240,11 +241,13 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
         } else {
             getUserHistory();
         }
+        $scope.pageNum = 1;
     }
 
     function getUserHistory() {
         Order.getHistory(user.userName()).success(function (data) {
             $scope.history = data;
+            $scope.totalOrders = data.length;
         });
         $scope.sortByStatus = ['-status', 'pickupDate', 'created'];
         $scope.sortByCreated = ['created', '-status', 'pickupDate'];
@@ -256,6 +259,7 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
     function getAllOrders() {
         Order.getAll().success(function (data) {
             $scope.history = data;
+            $scope.totalOrders = data.length;
         });
         $scope.sortByStatus = ['-status', 'pickupDate', 'created'];
         $scope.sortByCreated = ['created', '-status', 'pickupDate'];
