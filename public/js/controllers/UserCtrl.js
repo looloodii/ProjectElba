@@ -4,7 +4,7 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
 
     $scope.tagline = 'Sign Up Now!';
 
-    $scope.regEmail =  $route.current.params.regEmail;
+    $scope.email =  $route.current.params.regemail;
     var username = $route.current.params.username;
     var loc = $location.path();
 
