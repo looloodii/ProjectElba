@@ -69,6 +69,21 @@ var buildInquiryOptions = function(subject, inquiry, template) {
     };
 }
 
+var buildRegistrationOptions = function(subject, userDetails, template) {
+    return {
+        from: shopElbaEmail,
+        to: userDetails.email,
+        bcc: elbaEmail,
+        subject: subject,
+        template: template,
+        context: {
+            username: userDetails.local.username,
+            email: userDetails.email,
+            firstName: userDetails.firstName
+        }
+    };
+}
+
 module.exports = {
 
     mailOrderDetails: function(orderDetails) {
@@ -127,5 +142,17 @@ module.exports = {
         //        return err;
         //    }
         //});
+    },
+
+    mailUserDetails: function(userDetails) {
+        var subject = "Welcome to Shop Elba Diaries!",
+            mailOptions = buildRegistrationOptions(subject, userDetails, 'userdetails');
+
+        send(mailOptions, function(err) {
+            if (err) {
+                console.log("Unable to send orderDetails email: " + err);
+                return err;
+            }
+        });
     }
 };
