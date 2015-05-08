@@ -60,12 +60,15 @@
                 <div class="col-md-4 col-xs-12">
                     <h4>Your Contact Details</h4>
 
+                    <div class="form-group" ng-show="userLoggedIn()">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="username" placeholder="Name"
+                                   ng-model="neworder.username" ng-disabled="true" required>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-check"></i></span>
+                        </div>
+                    </div>
                     <div class="form-group"
                          ng-class="{'has-error' : (orderform.contactname.$dirty && orderform.contactname.$invalid)}">
-                        <div ng-if="loggedIn()">
-                            Display username and first name.
-                        </div>
-                        <!--<div ng-if="!loggedIn()">-->
                         <div class="input-group">
                             <input type="text" class="form-control" name="contactname" placeholder="Name"
                                    ng-model="neworder.contactname" ng-minlength="5" required>

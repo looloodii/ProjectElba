@@ -6,6 +6,16 @@ angular.module('OrderService', []).factory('Order', ['$http', function($http) {
             return $http.get('/api/order/' + orderId);
         },
 
+        //get all orders
+        getAll : function() {
+            return $http.get('/api/orders/');
+        },
+
+        //get order history for user
+        getHistory : function(username) {
+            return $http.get('/api/order/history/' + username);
+        },
+
         // create new order
         create : function(orderDetails) {
             return $http.post('/api/order', orderDetails);
@@ -23,4 +33,3 @@ angular.module('OrderService', []).factory('Order', ['$http', function($http) {
     }
 
 }]);
-
