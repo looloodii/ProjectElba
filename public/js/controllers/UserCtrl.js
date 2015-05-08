@@ -51,10 +51,11 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
             'password' : $scope.login.password
         };
 
-        User.login(userDetails)
+        /*User.login(userDetails)*/
+        User.login($scope.login_form)
             .success(function (data) {
                 console.log("In login success");
-                $scope.loggedIn() == true;
+                $scope.loggedIn == true;
                 $window.localStorage.setItem('user', angular.toJson(data));
                 console.log("localStorage: " + $window.localStorage.getItem('user'));
             });

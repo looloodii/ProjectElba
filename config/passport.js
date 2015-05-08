@@ -52,7 +52,7 @@ module.exports = function(passport) {
                         newUser.location = req.body.location;
 
                         // set the user's local credentials
-                        newUser.local.username    = username;
+                        newUser.local.username = username;
                         newUser.local.password = newUser.generateHash(password);
 
                         // save the user
@@ -75,7 +75,8 @@ module.exports = function(passport) {
             passReqToCallback : true
         },
         function(req, username, password, done) {
-
+            console.log(">>>>username:"+username);
+            console.log(">>>>password:"+password);
             User.findOne({ 'local.username' :  username }, function(err, user) {
                 if (err)
                     return done(err);
