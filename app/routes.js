@@ -90,7 +90,7 @@ module.exports = function (app, passport) {
      ***** CART/ORDER DETAILS
      *****/
 
-        // GET by orderId
+    // GET by orderId
     app.get('/api/order/:id', function (req, res) {
         Order.find({'_id': req.params.id}, function (err, order) {
             if (err)

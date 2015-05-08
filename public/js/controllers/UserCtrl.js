@@ -1,4 +1,4 @@
-angular.module('UserCtrl', []).controller('UserController', function($scope, User, $route, $location) {
+angular.module('UserCtrl', []).controller('UserController', function($window, $scope, User, $route, $location) {
 
 
     $scope.tagline = 'Sign Up Now!';
