@@ -13,8 +13,10 @@
 
             <div class="col-md-4 col-xs-12 col-md-offset-4">
                 <!--<h1><span class="fa fa-sign-in"></span> Login</h1>-->
-               <!--<form action="/login" method="post" name="login_form" novalidate >-->
-               <form method="post" name="login_form" ng-submit="login();" novalidate ng-controller="UserController">
+                <!--<form action="/login" method="post" name="login_form" novalidate >-->
+
+                <form method="post" name="login_form" ng-submit="login();" novalidate ng-controller="UserController">
+
                     <div class="form-group">
                         <label>Username</label>
                         <input type="text" class="form-control" name="username" ng-model="username" required>
@@ -38,6 +40,13 @@
 
                     <button type="submit" ng-disabled="login_form.$invalid" class="btn btn-warning btn-lg">Login
                     </button>
+                    <br/>
+
+                    <div class="alert text-center alert-danger" style="padding: 5px;margin-top: 12px;" role="alert" ng-show="loginMessage">
+                        <p>{{ loginMessage }}</p>
+
+                    </div>
+
                 </form>
 
                 <hr>

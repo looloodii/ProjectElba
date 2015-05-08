@@ -63,11 +63,17 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
 
         User.login(userDetails)
             .success(function (data) {
-                console.log("In login success");
-                $scope.loggedIn = true;
-                $window.localStorage.setItem('user', angular.toJson(data));
-                console.log("localStorage: " + $window.localStorage.getItem('user'));
-                $location.path('/account');
+                if(data == "Invalid credentials."){
+                    $scope.loginMessage = data;
+                }else{
+                    $scope.loginMessage = "";
+                    console.log("In login success");
+                    $scope.loggedIn = true;
+                    $window.localStorage.setItem('user', angular.toJson(data));
+                    console.log("localStorage: " + $window.localStorage.getItem('user'));
+                    $location.path('/account');
+                }
+
             });
     };
 

@@ -338,7 +338,8 @@ module.exports = function (app, passport) {
                 return next(err);
             }
             if (!user) {
-                return res.redirect('/login');
+                console.log(info);
+                return res.send(info);
             }
             req.logIn(user, function (err) {
                 if (err) {

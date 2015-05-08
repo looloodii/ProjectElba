@@ -81,10 +81,10 @@ module.exports = function(passport) {
                     return done(err);
 
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    return done(null, false, 'Invalid credentials.');
 
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    return done(null, false, 'Invalid credentials.');
 
                 return done(null, user);
             });

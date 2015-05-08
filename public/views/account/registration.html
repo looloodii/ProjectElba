@@ -16,7 +16,7 @@
              {{message}}  ng-pattern="/[^\s-]/"-->
             <div class="col-md-6 col-md-offset-3 col-xs-12" ng-controller="UserController">
                 <form class="form-horizontal" name="signup_form" action="/signup" method="post" novalidate>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error' : (signup_form.username.$dirty && signup_form.username.$invalid)}">
                         <label for="inputUsername" class="col-sm-4 control-label">Username</label>
 
                         <div class="col-sm-8">
@@ -42,7 +42,7 @@
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error' : (signup_form.password.$dirty && signup_form.password.$invalid)}">
                         <label for="inputPassword" class="col-sm-4 control-label">Password</label>
 
                         <div class="col-sm-8">
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error' : (signup_form.firstName.$dirty && signup_form.firstName.$invalid)}">
                         <label for="inputFirstName" class="col-sm-4 control-label">First Name</label>
 
                         <div class="col-sm-8">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error' : (signup_form.lastName.$dirty && signup_form.lastName.$invalid)}">
                         <label for="inputLastName" class="col-sm-4 control-label">Last Name</label>
 
                         <div class="col-sm-8">
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error' : (signup_form.email.$dirty && signup_form.email.$invalid)}">
                         <label for="inputEmail" class="col-sm-4 control-label">Email</label>
 
                         <div class="col-sm-8">
@@ -106,7 +106,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error' : (signup_form.mobileNumber.$dirty && signup_form.mobileNumber.$invalid)}">
                         <label for="inputMobileNumber" class="col-sm-4 control-label">Mobile Number</label>
 
                         <div class="col-sm-8">
