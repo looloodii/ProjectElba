@@ -31,6 +31,15 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
             }
         });
     }
+
+    $scope.logout = function(){
+        User.logout()
+            .success(function (data) {
+                console.log("success logging out -ctrl");
+                $location.path('/signin');
+            });
+    };
+
     $scope.login = function(){
         var userDetails = {
             'username' : $scope.login.username,
@@ -43,6 +52,7 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
                 $window.localStorage['user'] = angular.toJson(data);
             });
     };
+
 
     /*$scope.createUser = function() {
             var userDetails = {
