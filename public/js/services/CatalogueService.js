@@ -7,7 +7,7 @@ angular.module('CatalogueService', []).factory('Product', ['$http', function($ht
         },
 
         // get all products
-        get: function () {
+        getAll: function () {
             return $http.get('/api/catalogue');
         },
 
