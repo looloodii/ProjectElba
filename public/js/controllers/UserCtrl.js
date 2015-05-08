@@ -10,7 +10,7 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
 
     if(loc == "/account"){
 
-        if($window.localStorage.getItem('user')==null){
+        if(window.localStorage.getItem('user')==null){
             $location.path('/signin');
         }else{
             $scope.user = angular.fromJson($window.localStorage['user']);
@@ -47,6 +47,7 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
     $scope.logout = function(){
         User.logout()
             .success(function (data) {
+                $scope.loggedIn = false;
                 $window.localStorage.removeItem('user');
                 $location.path('/signin');
             });
@@ -56,17 +57,24 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
     $scope.login = function (req, res, next){
 
         var userDetails = {
-            'username' : $scope.login.username,
-            'password' : $scope.login.password
+            'username' : $scope.username,
+            'password' : $scope.password
         };
 
-        /*User.login(userDetails)
+        User.login(userDetails)
             .success(function (data) {
-                console.log("In login success");
-                $scope.loggedIn == true;
-                $window.localStorage.setItem('user', angular.toJson(data));
-                console.log("localStorage: " + $window.localStorage.getItem('user'));
-            });*/
+                if(data == "Invalid credentials."){
+                    $scope.loginMessage = data;
+                }else{
+                    $scope.loginMessage = "";
+                    console.log("In login success");
+                    $scope.loggedIn = true;
+                    $window.localStorage.setItem('user', angular.toJson(data));
+                    console.log("localStorage: " + $window.localStorage.getItem('user'));
+                    $location.path('/account');
+                }
+
+            });
     };
 
 
@@ -101,7 +109,8 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
         };
         User.update(userDetails)
             .success(function (data) {
-                $scope.updateMessage = data;
+                //$scope.updateMessage = data;
+                $window.localStorage.setItem('user', angular.toJson(data))
             });
     }
 
