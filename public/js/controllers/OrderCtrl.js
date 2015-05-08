@@ -12,7 +12,7 @@ cart.service('orderDtl', function ($filter) {
         id = order._id;
         items = order.itemList;
         status = order.status;
-        pickupDate = $filter('date')(order.pickupDate, 'yyyy-MM-dd')
+        pickupDate = $filter('date')(order.pickupDate, 'yyyy-MM-dd');
         editable = this.canEdit();
     };
 
@@ -46,7 +46,7 @@ cart.service('orderDtl', function ($filter) {
 
     this.canEdit = function () {
         var lastDate = new Date().setDate(new Date().getDate() + 2);
-        var lastEditDate = $filter('date')(lastDate, 'yyyy-MM-dd')
+        var lastEditDate = $filter('date')(lastDate, 'yyyy-MM-dd');
 
         if (pickupDate < lastEditDate) {
             return false;
