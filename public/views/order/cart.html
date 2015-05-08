@@ -89,16 +89,16 @@
                          ng-class="{'has-error' : (orderform.contactemail.$dirty && orderform.contactemail.$invalid)}">
                         <div class="input-group">
                             <input type="email" class="form-control" name="contactemail" placeholder="Email address"
-                                   ng-model="neworder.contactemail" ng-minlength="5" required>
+                                   ng-model="neworder.contactemail" required>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                         </div>
                         <div ng-show="(orderform.contactemail.$dirty && orderform.contactemail.$invalid)"
                              class="text-danger">
+                            <small ng-show="orderform.contactemail.$error.email">
+                                Please enter a valid email address.
+                            </small>
                             <small ng-show="orderform.contactemail.$error.required">
                                 Your email is required.
-                            </small>
-                            <small ng-show="orderform.contactemail.$error.minlength">
-                                Your email is required to be at least 5 characters.
                             </small>
                         </div>
                     </div>
@@ -111,7 +111,13 @@
                                    name="contactphone" placeholder="999-999-9999" required>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                         </div>
-                        <div ng-show="(orderform.contactphone.$dirty && orderform.contactphone.$invalid)"
+                        <div ng-show="(orderform.contactphone.$dirty && orderform.contactphone.$error.pattern)"
+                             class="text-danger">
+                            <small>
+                                Please enter a valid phone number.
+                            </small>
+                        </div>
+                        <div ng-show="(orderform.contactphone.$dirty && orderform.contactphone.$error.required)"
                              class="text-danger">
                             <small>
                                 Your phone number is required.
