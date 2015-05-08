@@ -134,7 +134,7 @@ cart.service('user', ['$window', function ($window) {
     var user;
 
     this.init = function () {
-        //console.log($window.localStorage.getItem('user'));
+        console.log($window.localStorage.getItem('user'));
         if ($window.localStorage.getItem('user') != null) {
             loggedIn = true;
             user = angular.fromJson($window.localStorage['user']);

@@ -38,6 +38,11 @@ h1 {
     background-color: rgba(255,255,255,1);
 }
 
+.btn-sharp {
+    border-radius: 0;
+    transition: all 0.25s ease-in-out;
+}
+
 .btn-want-some {
     background-color: rgba(247, 135, 41, 0.7);
     border-radius: 0;
@@ -45,6 +50,18 @@ h1 {
     color: white;
     font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;
+}
+
+.btn-cart {
+    background-color: rgba(252, 242, 175, 0.7);
+    border-radius: 0;
+    transition: all 0.25s ease-in-out;
+    margin-top: 50px;
+}
+
+.btn-cart:hover, .btn-cart:visited, .btn-cart:active  {
+    background-color: rgba(252, 242, 175, 0.9);
+    outline: none;
 }
 
 .btn-want-some:hover, .btn-want-some:visited, .btn-want-some:active {

@@ -94,6 +94,9 @@
                         </div>
                         <div ng-show="(orderform.contactemail.$dirty && orderform.contactemail.$invalid)"
                              class="text-danger">
+                            <small ng-show="orderform.contactemail.$error.email">
+                                Please enter a valid email address.
+                            </small>
                             <small ng-show="orderform.contactemail.$error.required">
                                 Your email is required.
                             </small>
@@ -111,7 +114,13 @@
                                    name="contactphone" placeholder="999-999-9999" required>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                         </div>
-                        <div ng-show="(orderform.contactphone.$dirty && orderform.contactphone.$invalid)"
+                        <div ng-show="(orderform.contactphone.$dirty && orderform.contactphone.$error.pattern)"
+                             class="text-danger">
+                            <small>
+                                Please enter a valid phone number.
+                            </small>
+                        </div>
+                        <div ng-show="(orderform.contactphone.$dirty && orderform.contactphone.$error.required)"
                              class="text-danger">
                             <small>
                                 Your phone number is required.
