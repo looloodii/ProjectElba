@@ -99,6 +99,16 @@ module.exports = function (app, passport) {
         });
     });
 
+   //GET history
+     app.get('/api/order/history/:username', function (req, res) {
+        Order.find({'userName': req.params.username}, function (err, orders) {
+        if (err)
+            res.send(err);
+            res.json(orders);
+        });
+     });
+
+
     app.post('/api/order', function (req, res) {
         var newOrder = new Order(req.body);
 
