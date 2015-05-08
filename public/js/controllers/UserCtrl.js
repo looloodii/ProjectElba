@@ -109,9 +109,24 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
         };
         User.update(userDetails)
             .success(function (data) {
-                //$scope.updateMessage = data;
                 $window.localStorage.setItem('user', angular.toJson(data))
             });
+    }
+
+    $scope.updatePassword = function() {
+        var passwordDetails = {
+            'username': $scope.user.local.username,
+            'currentPassword':  $scope.currentPassword,
+            'newPassword': $scope.newPassword,
+            'confirmPassword': $scope.confirmPassword
+        };
+        if($scope.newPassword != $scope.confirmPassword){
+            $scope.passwordMessage = "Passwords do not match.";
+        }else{
+            User.updatePassword(passwordDetails).success(function (data) {
+                $scope.passwordMessage = data;
+            });
+        }
     }
 
 });
