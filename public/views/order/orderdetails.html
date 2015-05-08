@@ -209,7 +209,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-default submit-panel">
+            <div ng-if="!userAdmin()" class="panel panel-default submit-panel">
                 <button class="btn btn-warning btn-lg btn-block" type="submit"
                         ng-disabled="!order.editable()" ng-click="updateOrder(order.orderDetails)">
                     UPDATE
@@ -220,6 +220,11 @@
                     CANCEL
                 </button>
             </div>
+
+            <button ng-if="userAdmin()" class="btn btn-warning btn-lg btn-block" type="submit"
+                    ng-disabled="!order.editable()" ng-click="updateOrder(order.orderDetails)">
+                UPDATE
+            </button>
 
         </div>
     </div>

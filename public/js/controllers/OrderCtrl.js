@@ -130,18 +130,19 @@ cart.service('orderBuilder', function () {
 
 cart.service('user', ['$window', function ($window) {
 
-    var loggedIn = false;
-    var user = {};
+    var loggedIn;
+    var user;
 
     this.init = function () {
-        console.log($window.localStorage.getItem('user'));
+        //console.log($window.localStorage.getItem('user'));
         if ($window.localStorage.getItem('user') != null) {
             loggedIn = true;
             user = angular.fromJson($window.localStorage['user']);
             user.name = this.contactName();
-            return true;
+        } else {
+            loggedIn = false;
+            user = {};
         }
-        return false;
     };
 
     this.loggedIn = function () {
@@ -177,7 +178,7 @@ cart.service('user', ['$window', function ($window) {
     }
 
     this.admin = function() {
-        console.log("user role: " + user.role);
+        //console.log("user role: " + user.role);
         if (loggedIn) {
             return user.role == 'ADMIN';
         }
@@ -214,8 +215,10 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
 
     $scope.dateFormat = 'dd-MMMM-yyyy';
     $scope.pickupPoints = ['Shadow Cove Apartments', 'Sunnyvale'];
-    $scope.statusOpt = ['NEW', 'INPROCESS', 'COMPLETED'];
+    $scope.statusOpt = ['NEW', 'INPROCESS', 'COMPLETED', 'CANCELLED'];
     $scope.emptyOrder = {};
+    $scope.pageNum = 1;
+    $scope.totalOrders = 0;
 
     //Initialize User Details
     function initializeUser() {
@@ -247,7 +250,6 @@ cart.controller('OrderController', function ($scope, $location, $routeParams, $f
         } else {
             getUserHistory();
         }
-        $scope.pageNum = 1;
     }
 
     function getUserHistory() {

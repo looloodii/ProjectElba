@@ -132,14 +132,14 @@ module.exports = function (app, passport) {
             });
     });
 
-    app.put('/api/catalogue/status/:id', function (req, res) {
+    app.put('/api/catalogue/:id/:status', function (req, res) {
         var product = req.body;
         product.updated = new Date();
 
         var response = {};
         Product.findByIdAndUpdate(
             req.params.id,
-            {$set: { 'status' : req.body }},
+            {$set: { 'status' : req.params.status.toUpperCase() }},
             {new: true},
             function (err, order) {
                 if (err) {

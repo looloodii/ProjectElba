@@ -1,10 +1,10 @@
-<div ng-show="!history">
-    <div class="alert text-center alert-warning" role="alert">
-        <p>You have no orders yet but <a ng-href="/catalogue" href="#"><strong>we can fix that</strong></a>! </p>
+<div ng-show="totalOrders < 1">
+    <div class="alert text-center alert-info" role="alert">
+        <h4>You have no orders yet but <a ng-href="/catalogue" href="#"><strong>we can fix that</strong></a>! </h4>
     </div>
 </div>
 
-<div class="history-panel">
+<div ng-show="totalOrders > 0" class="history-panel">
     <div class="row history-panel-header">
         <!-- Order by Status then Pickup Date then Created -->
         <div class="col-md-3">

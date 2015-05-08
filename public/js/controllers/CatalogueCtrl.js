@@ -29,22 +29,5 @@ catalogue.controller('CatalogueController', function($scope, $http, ngCart, Prod
         return newArr;
     }
 
-    //$scope.$on('$viewContentLoaded', function(newRoute, oldRoute) {
-    //    $location.hash($routeParams.categoryId);
-    //    $anchorScroll();
-    //});
 
-
-    //$scope.getCakes = function() {
-    //    Product.get('cakes').success(function(data) {
-    //        $scope.cakes = data;
-    //    });
-    //};
 });
-
-//catalogue.run(function($rootScope, $location, $anchorScroll, $routeParams) {
-//    $rootScope.$on('$viewContentLoaded', function(newRoute, oldRoute) {
-//        $location.hash($routeParams.scrollTo);
-//        $anchorScroll();
-//    });
-//})
