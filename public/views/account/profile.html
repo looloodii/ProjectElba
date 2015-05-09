@@ -138,8 +138,9 @@
                         </button>
                     </div>
 
-                    <div class="col-sm-offset-10 col-sm-2"><span style="font-size: 18px;">{{updateMessage}}</span></div>
-
+                    <div class="col-sm-12 alert text-center alert-warning" style="padding: 5px;margin-top: 12px;" role="alert" ng-show="updateMessage">
+                        <p>{{updateMessage}}</p>
+                    </div>
                 </div>
 
             </form>
@@ -158,21 +159,25 @@
                     </div>
                     <div class="form-group">
                         <label for="inputNew" class="control-label">New Password</label>
-                        <input type="password" class="form-control" id="inputNew" name="firstName"
+                        <input type="password" class="form-control" id="inputNew" name="newPassword"
                                ng-model="newPassword" required>
                     </div>
                     <div class="form-group">
                         <label for="inputConfirm" class="control-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="inputConfirm" name="firstName"
+                        <input type="password" class="form-control" id="inputConfirm" name="confirmPassword"
                                ng-model="confirmPassword" required>
                     </div>
                     <div class="col-sm-offset-4 col-sm-8">
-                        <button type="submit" ng-disabled="account_form.$invalid" class="btn btn-default">Update
+                        <button type="submit" ng-disabled="password_form.$invalid" class="btn btn-default">Update
                             Password
                         </button>
                     </div>
+                    <input type="hidden" class="form-control" name="passwordUsername"
+                           ng-model="user.local.username" value="{{user.local.username}}">
+                    <div class="col-sm-12 alert text-center alert-warning" style="padding: 5px;margin-top: 12px;" role="alert" ng-show="passwordMessage">
+                        <p>{{ passwordMessage }}</p>
+                    </div>
 
-                    <div class=""><span style="font-size: 18px;">{{updateMessage}}</span></div>
                 </form>
             </div>
         </div>
