@@ -79,7 +79,10 @@ var buildRegistrationOptions = function(subject, userDetails, template) {
         context: {
             username: userDetails.local.username,
             email: userDetails.email,
-            firstName: userDetails.firstName
+            firstName: userDetails.firstName,
+            lastName: userDetails.lastName,
+            mobileNumber: userDetails.mobileNumber,
+            location: userDetails.location
         }
     };
 }
@@ -150,7 +153,7 @@ module.exports = {
 
         send(mailOptions, function(err) {
             if (err) {
-                console.log("Unable to send orderDetails email: " + err);
+                console.log("Unable to send user details email: " + err);
                 return err;
             }
         });

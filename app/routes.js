@@ -319,6 +319,43 @@ module.exports = function (app, passport) {
         });
     });
 
+    app.put('/api/password', function (req, res) {
+
+        User.findOne({'local.username': req.body.username}, function (err, user) {
+
+            if (err){
+                res.send(err);
+            }else{
+
+                var userCurrentPass = user.local.password;
+                var tempUser = new User({
+                    local :
+                    {
+                        password: userCurrentPass
+                    }
+                });
+
+                if(tempUser.validPassword(req.body.currentPassword)){
+                    var newPasswordHash = tempUser.generateHash(req.body.newPassword);
+                    var query = {'local.username': req.body.username};
+                    User.update(query, {local : {password: newPasswordHash, username: req.body.username}}, {}, function (err, user) {
+                        if (err) {
+                            throw err;
+                        }
+                        res.send("Successful.");
+                    });
+                }else{
+                    res.send("Invalid password.");
+                }
+
+
+
+
+            }
+
+        });
+    });
+
     app.post('/api/verifyuser', function (req, res) {
         sess = req.session;
         sess.user = req.user;

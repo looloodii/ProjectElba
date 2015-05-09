@@ -33,6 +33,10 @@ angular.module('UserService', []).factory('User', ['$http', function($http) {
 
         logout : function() {
             return $http.get('/api/logout');
+        },
+
+        updatePassword : function(passwordDetails) {
+            return $http.put('/api/password', passwordDetails);
         }
 
     };
