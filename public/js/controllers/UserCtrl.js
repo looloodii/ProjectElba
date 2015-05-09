@@ -67,10 +67,10 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
                     $scope.loginMessage = data;
                 }else{
                     $scope.loginMessage = "";
-                    console.log("In login success");
+                    //console.log("In login success");
                     $scope.loggedIn = true;
                     $window.localStorage.setItem('user', angular.toJson(data));
-                    console.log("localStorage: " + $window.localStorage.getItem('user'));
+                    //console.log("localStorage: " + $window.localStorage.getItem('user'));
                     $location.path('/account');
                 }
 
@@ -138,21 +138,34 @@ usermod.directive('ensureUnique', ['$http', '$timeout', function($http, $timeout
         require: 'ngModel',
         link: function(scope, ele, attrs, c) {
             scope.$watch(attrs.ngModel, function() {
-                if (!checking && c.$dirty ) {
-                    checking = $timeout(function() {
-                        $http({
-                            method: 'POST',
-                            url: '/api/check/' + scope.$eval(attrs.ensureUnique)
-                        }).success(function(data, status, headers, cfg) {
-                            if(data != null){
-                                c.$setValidity('unique', false);
-                            }else{
-                                c.$setValidity('unique', true);
-                            }
-                            checking = null;
-                        });
-                    }, 500);
-                }
+                $http({
+                    method: 'POST',
+                    url: '/api/check/' + scope.$eval(attrs.ensureUnique)
+                }).success(function(data, status, headers, cfg) {
+                    if(data != null){
+                        c.$setValidity('unique', false);
+                    }else{
+                        c.$setValidity('unique', true);
+                    }
+                }).error(function(data, status, headers, cfg) {
+                    c.$setValidity('unique', false);
+                });
+
+                //if (!checking && c.$dirty) {
+                //    checking = $timeout(function() {
+                //        $http({
+                //            method: 'POST',
+                //            url: '/api/check/' + scope.$eval(attrs.ensureUnique)
+                //        }).success(function(data, status, headers, cfg) {
+                //            if(data != null){
+                //                c.$setValidity('unique', false);
+                //            }else{
+                //                c.$setValidity('unique', true);
+                //            }
+                //            checking = null;
+                //        });
+                //    }, 500);
+                //}
             });
         }
     }

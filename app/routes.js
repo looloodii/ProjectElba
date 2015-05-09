@@ -78,7 +78,10 @@ module.exports = function (app, passport) {
 
     // GET api/catalogue/:category
     app.get('/api/catalogue/:category', function (req, res) {
-        Product.find({'category': req.params.category}, function (err, products) {
+        Product.find(
+            {'category': req.params.category,
+                'status' : 'ACTIVE'},
+            function (err, products) {
             if (err)
                 res.send(err);
 
@@ -106,7 +109,7 @@ module.exports = function (app, passport) {
                 response = {error: true, errMsg: err};
             } else {
                 console.log('Product created successfully! ' + newProduct._id);
-                response = {orderId: newProduct._id, mailMsg: ''};
+                response = newProduct;
             }
             res.json(response);
         });
