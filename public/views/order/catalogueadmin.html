@@ -1,0 +1,175 @@
+<div class="marketing container-fluid">
+
+    <div class="btn-splash btn btn-lg btn-block bg-button">
+        <h1>Manage Catalogue</h1>
+    </div>
+
+    <div class="row product-grid text-center" ng-repeat="products in catalogue">
+        <div class="col-md-4 col-xs-4"
+             ng-repeat="product in products">
+
+            <img ng-src="{{ product.imageUrl }}" class="img-responsive">
+
+            <div ng-class="{'bg-danger' : product.status == 'INACTIVE'}">
+                <h4>{{ product.name }}</h4>
+
+                <p>{{ product.description }} <strong> ${{ product.price }} </strong></p></div>
+            <br>
+
+            <button class="btn btn-want-some btn-lg" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-pencil"></i>
+                EDIT
+            </button>
+
+            <div class="panel panel-default add-cart-panel" collapse="isCollapsed" ng-init="isCollapsed = true">
+                <form ng-submit="updateProduct(product, $index)" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                        <div class="col-sm-10">
+                            <input ng-model="product.name" name="name" type="text" class="form-control" id="inputName"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">Desc</label>
+
+                        <div class="col-sm-10">
+                            <textarea ng-model="product.description" name="description" rows="3"
+                                      class="col-sm-10 form-control" id="description" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="col-sm-2 control-label pull-left">Group</label>
+
+                        <div class="col-sm-10">
+                            <select ng-model="product.category" class="form-control pull-right" name="category"
+                                    id="category" ng-options="p for p in categoryOpt" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageurl" class="col-sm-2 control-label">Img URL</label>
+
+                        <div class="col-sm-10">
+                            <input ng-model="product.imageUrl" name="imageUrl" type="url" class="form-control"
+                                   id="imageurl"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="col-sm-2 control-label">Price</label>
+
+                        <div class="col-sm-10">
+                            <input ng-model="product.price" name="price" type="text"
+                                   class="col-sm-10 form-control" id="price"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="flavors" class="col-sm-2 control-label pull-left">Flavors</label>
+
+                        <div class="col-sm-10">
+                            <input ng-model="product.flavors" name="flavors" type="text"
+                                   class="form-control" id="flavors">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="col-sm-2 control-label pull-left">Status</label>
+
+                        <div class="col-sm-10">
+                            <select ng-model="product.status" class="form-control pull-right" name="status"
+                                    id="status"
+                                    ng-options="p for p in ['ACTIVE','INACTIVE']" required>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                    <div ng-show="product.successAlert" class="alert alert-success" role="alert">{{ product.successAlert
+                        }}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div ng-show="$last">
+            <div class="col-md-4 col-xs-4">
+                <button class="btn btn-warning btn-add-product" ng-click="isCollapsed = !isCollapsed">
+                    <i class="fa fa-plus fa-5x"></i></button>
+
+                <div class="panel panel-default add-cart-panel" collapse="isCollapsed" ng-init="isCollapsed = true">
+                    <form ng-submit="addProduct(newproduct)" class="form-horizontal" name="newProductForm">
+                        <div class="form-group">
+                            <label for="newInputName" class="col-sm-2 control-label">Name</label>
+
+                            <div class="col-sm-10">
+                                <input ng-model="newproduct.name" name="name" type="text" class="form-control"
+                                       id="newInputName"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newdescription" class="col-sm-2 control-label">Desc</label>
+
+                            <div class="col-sm-10">
+                            <textarea ng-model="newproduct.description" name="description" rows="3"
+                                      class="col-sm-10 form-control" id="newdescription" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newcategory" class="col-sm-2 control-label pull-left">Group</label>
+
+                            <div class="col-sm-10">
+                                <select ng-model="newproduct.category" class="form-control pull-right"
+                                        name="newcategory"
+                                        id="newcategory" ng-options="p for p in categoryOpt" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newimageurl" class="col-sm-2 control-label">Img URL</label>
+
+                            <div class="col-sm-10">
+                                <input ng-model="newproduct.imageUrl" name="imageUrl" type="url" class="form-control"
+                                       id="newimageurl"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newprice" class="col-sm-2 control-label">Price</label>
+
+                            <div class="col-sm-10">
+                                <input ng-model="newproduct.price" name="price" type="text"
+                                       class="col-sm-10 form-control" id="newprice"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newflavors" class="col-sm-2 control-label pull-left">Flavors</label>
+
+                            <div class="col-sm-10">
+                                <input ng-model="newproduct.flavors" name="flavors" type="text"
+                                       class="form-control" id="newflavors">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newstatus" class="col-sm-2 control-label pull-left">Status</label>
+
+                            <div class="col-sm-10">
+                                <select ng-model="newproduct.status" class="form-control pull-right" name="status"
+                                        id="newstatus"
+                                        ng-options="p for p in ['ACTIVE','INACTIVE']" required>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Add</button>
+                        <div ng-show="newproduct.successAlert" class="alert alert-success" style="margin-top: 20px"
+                             role="alert">
+                            {{ newproduct.successAlert }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

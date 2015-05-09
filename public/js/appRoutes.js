@@ -9,12 +9,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         })
 
         .when('/catalogue', {
-            templateUrl: 'views/order/catalogue.html',
+            templateUrl: 'views/order/cataloguedefault.html',
             controller: 'CatalogueController'
         })
 
         .when ('/catalogue/:categoryId', {
-            templateUrl: 'views/order/catalogue.html',
+            templateUrl: 'views/order/cataloguedefault.html',
             controller: 'CatalogueController'
         })
 
