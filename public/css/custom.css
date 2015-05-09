@@ -57,7 +57,7 @@ h1 {
     background-color: rgba(146, 124, 133, 0.3);
     border-radius: 0;
     transition: all 0.25s ease-in-out;
-    margin-top: 50px;
+    /*margin-top: 50px;*/
 }
 
 .btn-cart:hover, .btn-cart:visited, .btn-cart:active  {
