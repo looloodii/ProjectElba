@@ -5,8 +5,7 @@
     </div>
 
     <div class="row product-grid text-center" ng-repeat="products in catalogue">
-        <div class="col-md-4 col-xs-4"
-             ng-repeat="product in products">
+        <div class="col-md-4 col-xs-4" ng-repeat="product in products">
 
             <img ng-src="{{ product.imageUrl }}" class="img-responsive">
 
@@ -21,13 +20,18 @@
             </button>
 
             <div class="panel panel-default add-cart-panel" collapse="isCollapsed" ng-init="isCollapsed = true">
-                <form ng-submit="updateProduct(product, $index)" class="form-horizontal">
+                <form ng-submit="updateProduct(product, $index)" class="form-horizontal" name="productform" novalidate>
                     <div class="form-group">
                         <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                         <div class="col-sm-10">
                             <input ng-model="product.name" name="name" type="text" class="form-control" id="inputName"
                                    required>
+                        </div>
+                        <div ng-show="(productform.name.$dirty && productform.name.$invalid)" class="text-danger">
+                            <small ng-show="productform.name.$error.required">
+                                Product name is required.
+                            </small>
                         </div>
                     </div>
                     <div class="form-group">
@@ -36,6 +40,12 @@
                         <div class="col-sm-10">
                             <textarea ng-model="product.description" name="description" rows="3"
                                       class="col-sm-10 form-control" id="description" required></textarea>
+                        </div>
+                        <div ng-show="(productform.description.$dirty && productform.description.$invalid)"
+                             class="text-danger">
+                            <small ng-show="productform.description.$error.required">
+                                Description is required.
+                            </small>
                         </div>
                     </div>
                     <div class="form-group">
@@ -46,6 +56,12 @@
                                     id="category" ng-options="p for p in categoryOpt" required>
                             </select>
                         </div>
+                        <div ng-show="(productform.category.$dirty && productform.category.$invalid)"
+                             class="text-danger">
+                            <small ng-show="productform.category.$error.required">
+                                Description is required.
+                            </small>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="imageurl" class="col-sm-2 control-label">Img URL</label>
@@ -55,14 +71,31 @@
                                    id="imageurl"
                                    required>
                         </div>
+                        <div ng-show="(productform.imageUrl.$dirty && productform.imageUrl.$invalid)"
+                             class="text-danger">
+                            <small ng-show="productform.imageUrl.$error.required">
+                                Image URL is required.
+                            </small>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="price" class="col-sm-2 control-label">Price</label>
 
                         <div class="col-sm-10">
-                            <input ng-model="product.price" name="price" type="text"
-                                   class="col-sm-10 form-control" id="price"
-                                   required>
+                            <input ng-model="product.price" name="price" type="text" class="col-sm-10 form-control"
+                                   id="price"
+                                   ng-pattern="/(?:\d*\.)?\d+/" required>
+                        </div>
+                        <div ng-show="(productform.price.$dirty && productform.price.$invalid)" class="text-danger">
+                            <small ng-show="productform.price.$error.required">
+                                Price is required.
+                            </small>
+                        </div>
+                        <div ng-show="(productform.price.$dirty && productform.price.$error.pattern)"
+                             class="text-danger">
+                            <small ng-show="productform.price.$error.pattern">
+                                Enter a valid currency value.
+                            </small>
                         </div>
                     </div>
                     <div class="form-group">
@@ -78,12 +111,17 @@
 
                         <div class="col-sm-10">
                             <select ng-model="product.status" class="form-control pull-right" name="status"
-                                    id="status"
-                                    ng-options="p for p in ['ACTIVE','INACTIVE']" required>
+                                    id="status" ng-options="p for p in ['ACTIVE','INACTIVE']" required>
                             </select>
                         </div>
+                        <div ng-show="(productform.status.$dirty && productform.status.$invalid)" class="text-danger">
+                            <small ng-show="productform.status.$error.required">
+                                Status is required.
+                            </small>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-disabled="productform.$invalid">Update
+                    </button>
                     <div ng-show="product.successAlert" class="alert alert-success" role="alert">{{ product.successAlert
                         }}
                     </div>
@@ -97,7 +135,7 @@
                     <i class="fa fa-plus fa-5x"></i></button>
 
                 <div class="panel panel-default add-cart-panel" collapse="isCollapsed" ng-init="isCollapsed = true">
-                    <form ng-submit="addProduct(newproduct)" class="form-horizontal" name="newProductForm">
+                    <form ng-submit="addProduct(newproduct)" class="form-horizontal" name="newproductform" novalidate>
                         <div class="form-group">
                             <label for="newInputName" class="col-sm-2 control-label">Name</label>
 
@@ -105,6 +143,12 @@
                                 <input ng-model="newproduct.name" name="name" type="text" class="form-control"
                                        id="newInputName"
                                        required>
+                            </div>
+                            <div ng-show="(newproductform.name.$dirty && newproductform.name.$invalid)"
+                                 class="text-danger">
+                                <small ng-show="newproductform.name.$error.required">
+                                    Product name is required.
+                                </small>
                             </div>
                         </div>
                         <div class="form-group">
@@ -114,15 +158,27 @@
                             <textarea ng-model="newproduct.description" name="description" rows="3"
                                       class="col-sm-10 form-control" id="newdescription" required></textarea>
                             </div>
+                            <div ng-show="(newproductform.description.$dirty && newproductform.description.$invalid)"
+                                 class="text-danger">
+                                <small ng-show="newproductform.description.$error.required">
+                                    Description is required.
+                                </small>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="newcategory" class="col-sm-2 control-label pull-left">Group</label>
 
                             <div class="col-sm-10">
                                 <select ng-model="newproduct.category" class="form-control pull-right"
-                                        name="newcategory"
-                                        id="newcategory" ng-options="p for p in categoryOpt" required>
+                                        name="category" id="newcategory" ng-options="p for p in categoryOpt"
+                                        ng-init="newproduct.category = 'CAKES'" required>
                                 </select>
+                            </div>
+                            <div ng-show="(newproductform.category.$dirty && newproductform.category.$invalid)"
+                                 class="text-danger">
+                                <small ng-show="newproductform.category.$error.required">
+                                    Category is required.
+                                </small>
                             </div>
                         </div>
                         <div class="form-group">
@@ -133,14 +189,32 @@
                                        id="newimageurl"
                                        required>
                             </div>
+                            <div ng-show="(newproductform.imageUrl.$dirty && newproductform.imageUrl.$invalid)"
+                                 class="text-danger">
+                                <small ng-show="newproductform.imageUrl.$error.required">
+                                    Image URL is required.
+                                </small>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="newprice" class="col-sm-2 control-label">Price</label>
 
                             <div class="col-sm-10">
                                 <input ng-model="newproduct.price" name="price" type="text"
-                                       class="col-sm-10 form-control" id="newprice"
+                                       class="col-sm-10 form-control" id="newprice" ng-pattern="/(?:\d*\.)?\d+/"
                                        required>
+                            </div>
+                            <div ng-show="(newproductform.price.$dirty && newproductform.price.$invalid)"
+                                 class="text-danger">
+                                <small ng-show="newproductform.price.$error.required">
+                                    Price is required.
+                                </small>
+                            </div>
+                            <div ng-show="(newproductform.price.$dirty && newproductform.price.$error.pattern)"
+                                 class="text-danger">
+                                <small ng-show="newproductform.price.$error.pattern">
+                                    Enter a valid currency value.
+                                </small>
                             </div>
                         </div>
                         <div class="form-group">
@@ -156,12 +230,19 @@
 
                             <div class="col-sm-10">
                                 <select ng-model="newproduct.status" class="form-control pull-right" name="status"
-                                        id="newstatus"
-                                        ng-options="p for p in ['ACTIVE','INACTIVE']" required>
+                                        id="newstatus" ng-options="p for p in ['ACTIVE','INACTIVE']"
+                                        ng-init="newproduct.status = 'ACTIVE'" required>
                                 </select>
                             </div>
+                            <div ng-show="(newproductform.status.$dirty && newproductform.status.$invalid)"
+                                 class="text-danger">
+                                <small ng-show="newproductform.status.$error.required">
+                                    Status is required.
+                                </small>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg">Add</button>
+                        <button type="submit" class="btn btn-primary btn-lg" ng-disabled="newproductform.$invalid">Add
+                        </button>
                         <div ng-show="newproduct.successAlert" class="alert alert-success" style="margin-top: 20px"
                              role="alert">
                             {{ newproduct.successAlert }}
