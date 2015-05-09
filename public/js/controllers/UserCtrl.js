@@ -67,10 +67,10 @@ usermod.controller('UserController', function($window, $scope, User, $route, $lo
                     $scope.loginMessage = data;
                 }else{
                     $scope.loginMessage = "";
-                    console.log("In login success");
+                    //console.log("In login success");
                     $scope.loggedIn = true;
                     $window.localStorage.setItem('user', angular.toJson(data));
-                    console.log("localStorage: " + $window.localStorage.getItem('user'));
+                    //console.log("localStorage: " + $window.localStorage.getItem('user'));
                     $location.path('/account');
                 }
 

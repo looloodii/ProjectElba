@@ -112,14 +112,15 @@ catalogue.controller('CatalogueController', function ($scope, $http, ngCart, Pro
 
     $scope.newproduct = {};
     $scope.addProduct = function (newproduct) {
-        console.log('newproduct: ' + angular.toJson(newproduct));
+        //console.log('newproduct: ' + angular.toJson(newproduct));
         Product.create(newproduct).success(function(data) {
             if (data.error) {
                 $scope.newproduct.successAlert = data.errMsg;
             } else {
-                //console.log(data);
+                console.log(data);
                 $scope.newproduct.successAlert = 'Successfully updated.';
-                $scope.catalogue.push(data);
+                //$scope.catalogue.push(newproduct);
+                pushToChunk(data, $scope.catalogue, 3);
                 $timeout(function () {
                     $scope.newproduct.successAlert = null;
                 }, 2000);
@@ -134,7 +135,17 @@ catalogue.controller('CatalogueController', function ($scope, $http, ngCart, Pro
             newArr.push(arr.slice(i, i + size));
         }
         return newArr;
-    }
+    };
+
+    function pushToChunk(data, arr, size) {
+        var chunks = arr.length;
+        var lastChunk = arr[chunks - 1];
+        if (lastChunk.length < size) {
+            lastChunk.push(data);
+        } else {
+            arr.push([data]);
+        }
+    };
 
 });
 

@@ -135,7 +135,8 @@
                     <i class="fa fa-plus fa-5x"></i></button>
 
                 <div class="panel panel-default add-cart-panel" collapse="isCollapsed" ng-init="isCollapsed = true">
-                    <form ng-submit="addProduct(newproduct)" class="form-horizontal" name="newproductform" novalidate>
+                    <form ng-submit="addProduct(newproduct); isCollapsed = true;" class="form-horizontal"
+                          name="newproductform" novalidate>
                         <div class="form-group">
                             <label for="newInputName" class="col-sm-2 control-label">Name</label>
 

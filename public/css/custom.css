@@ -78,8 +78,9 @@ h1 {
 }
 
 .btn-add-product {
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
+    margin-top: 25px;
 }
 
 .cart-quantity {
